@@ -1,0 +1,42 @@
+﻿{
+    "title": "Liyanjie.Jsonql.Tester",
+    "description": "Jsonql Tester",
+    "copyright": "© Liyanjie.me",
+    "version": "1.0.0-*",
+    "authors": [ "liyanjie8712@outlook.com" ],
+
+    "dependencies": {
+    },
+
+    "frameworks": {
+        "netstandard1.1": {
+            "buildOptions": {
+                "define": [ "NETSTANDARD" ]
+            },
+            "dependencies": {
+                "System.Runtime.InteropServices": "4.3.0"
+            }
+        },
+        "netframework45": {
+            "buildOptions": {
+                "define": [ "NETFRAMEWORK" ]
+            }
+        }
+    },
+
+    "buildOptions": {
+        "embed": [
+            "static/css.min.css",
+            "static/favicon.ico",
+            "static/index.html",
+            "static/jquery-3.1.1.min.js",
+            "static/js.min.js",
+            "static/jsonql.html"
+        ],
+        "keyFile": "../../tools/key.snk"
+    },
+
+    "packOptions": {
+        "owners": [ "Liyanjie.me" ]
+    }
+}

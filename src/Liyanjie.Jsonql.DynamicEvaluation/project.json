@@ -1,0 +1,34 @@
+﻿{
+    "title": "Liyanjie.Jsonql.DynamicEvaluation",
+    "description": "Jsonql DynamicEvaluation",
+    "copyright": "© Liyanjie.me",
+    "version": "1.0.0-*",
+    "authors": [ "liyanjie8712@outlook.com" ],
+
+    "dependencies": {
+        "Liyanjie.Jsonql.Core": "1.0.0-*",
+        "Liyanjie.Evaluation": "1.0.0"
+    },
+
+    "frameworks": {
+        "netstandard1.3": {
+            "buildOptions": {
+                "define": [ "NETSTANDARD" ]
+            }
+        },
+        "netframework45": {
+            "buildOptions": {
+                "define": [ "NETFRAMEWORK" ]
+            }
+        }
+    },
+
+    "buildOptions": {
+        "xmlDoc": true,
+        "keyFile": "../../tools/key.snk"
+    },
+
+    "packOptions": {
+        "owners": [ "Liyanjie.me" ]
+    }
+}

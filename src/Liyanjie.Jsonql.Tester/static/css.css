@@ -1,0 +1,148 @@
+﻿html, body {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0; }
+
+body {
+  font-family: Verdana 'Microsoft YaHei';
+  overflow: hidden; }
+  body > header {
+    position: fixed;
+    width: 100%;
+    min-width: 880px;
+    height: 40px;
+    line-height: 40px;
+    text-indent: 2em;
+    color: #ffffff;
+    font-weight: bold;
+    background-color: #303030;
+    overflow: hidden; }
+    body > header .l {
+      float: left; }
+      body > header .l b {
+        font-weight: bold; }
+      body > header .l a {
+        color: #cccccc; }
+        body > header .l a:hover {
+          color: #ff0000; }
+    body > header .r {
+      float: right; }
+    body > header input {
+      width: 320px;
+      padding: 5px 3px;
+      border: none 0;
+      font-weight: bold;
+      color: #ff0000; }
+  body > main {
+    position: absolute;
+    top: 40px;
+    bottom: 0;
+    width: 100%;
+    min-width: 880px;
+    height: auto; }
+    body > main > div.l {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 360px;
+      height: auto;
+      background-color: #393939;
+      overflow: auto; }
+      body > main > div.l dl {
+        margin: 0;
+        padding: 0;
+        color: #cfcfcf;
+        font-size: 12px;
+        font-family: Consolas; }
+        body > main > div.l dl dt {
+          padding: 5px;
+          cursor: default; }
+          body > main > div.l dl dt b {
+            color: #cfcfcf; }
+          body > main > div.l dl dt:hover b {
+            text-decoration: underline; }
+        body > main > div.l dl dd {
+          margin: 0;
+          padding: 0 5px 5px 20px;
+          background-color: #3f3f3f;
+          white-space: nowrap;
+          overflow: hidden; }
+          body > main > div.l dl dd .name {
+            color: #cfcfcf; }
+          body > main > div.l dl dd .class {
+            color: #4ec9a6; }
+          body > main > div.l dl dd .type {
+            color: #569dd5; }
+          body > main > div.l dl dd .interface {
+            color: #b9d7a3; }
+          body > main > div.l dl dd .optional {
+            color: #ff9999; }
+    body > main > div.r {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 360px;
+      right: 0;
+      width: auto;
+      height: auto;
+      overflow: hidden; }
+      body > main > div.r div.m {
+        position: absolute;
+        top: 30%;
+        bottom: 60%;
+        width: 100%;
+        height: auto;
+        background-color: #393939; }
+        body > main > div.r div.m div {
+          color: #996666;
+          position: absolute;
+          top: 50%;
+          width: 100%;
+          margin-top: -12.5px;
+          text-align: center; }
+        body > main > div.r div.m input {
+          width: 80px; }
+        body > main > div.r div.m button {
+          background-color: #cccccc; }
+          body > main > div.r div.m button[disabled] {
+            color: #663333; }
+        body > main > div.r div.m input,
+        body > main > div.r div.m button {
+          padding: 5px 3px;
+          border: none 0;
+          font-weight: bold;
+          color: #ff0000; }
+      body > main > div.r div.t {
+        position: absolute;
+        top: 0;
+        bottom: 70%;
+        width: 100%;
+        height: auto;
+        background-color: #999999; }
+        body > main > div.r div.t div {
+          position: absolute;
+          padding: 0 20px;
+          color: #336633;
+          font-size: 12px; }
+      body > main > div.r div.b {
+        position: absolute;
+        top: 40%;
+        bottom: 0;
+        width: 100%;
+        height: auto;
+        background-color: #999999; }
+      body > main > div.r div.b textarea,
+      body > main > div.r div.t textarea {
+        box-sizing: border-box;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 20px;
+        border: none 0;
+        color: #ffffff;
+        font-family: Consolas;
+        background-color: transparent;
+        resize: none; }
+

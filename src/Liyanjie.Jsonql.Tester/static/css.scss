@@ -1,0 +1,47 @@
+﻿html, body { position: relative; width: 100%; height: 100%; margin: 0; padding: 0; }
+body { font-family: Verdana 'Microsoft YaHei'; overflow: hidden;
+    > header { position: fixed; width: 100%; min-width: 880px; height: 40px; line-height: 40px; text-indent: 2em; color: #ffffff; font-weight: bold; background-color: #303030; overflow: hidden;
+        .l { float: left;
+            b { font-weight: bold; }
+            a { color: #cccccc;
+                &:hover { color: #ff0000; }
+            }
+        }
+        .r { float: right; }
+        input { width: 320px; padding: 5px 3px; border: none 0; font-weight: bold; color: #ff0000; }
+    }
+    > main { position: absolute; top: 40px; bottom: 0; width: 100%; min-width: 880px; height: auto;
+        > div.l { position: absolute; top: 0; bottom: 0; width: 360px; height: auto; background-color: #393939; overflow: auto;
+            dl { margin: 0; padding: 0; color: #cfcfcf; font-size: 12px; font-family: Consolas;
+                dt { padding: 5px; cursor: default;
+                    b { color: #cfcfcf; }
+                    &:hover b { text-decoration: underline; }
+                }
+                dd { margin: 0; padding: 0 5px 5px 20px; background-color: #3f3f3f; white-space: nowrap; overflow: hidden;
+                    .name { color: #cfcfcf; }
+                    .class { color: #4ec9a6; }
+                    .type { color: #569dd5; }
+                    .interface { color: #b9d7a3; }
+                    .optional { color: #ff9999; }
+                }
+            }
+        }
+        > div.r { position: absolute; top: 0; bottom: 0; left: 360px; right: 0; width: auto; height: auto; overflow: hidden;
+            div.m { position: absolute; top: 30%; bottom: 60%; width: 100%; height: auto; background-color: #393939;
+                div { color: #996666; position: absolute; top: 50%; width: 100%; margin-top: -12.5px; text-align: center; }
+                input { width: 80px; }
+                button { background-color: #cccccc;
+                    &[disabled] { color: #663333; }
+                }
+                input,
+                button { padding: 5px 3px; border: none 0; font-weight: bold; color: #ff0000; }
+            }
+            div.t { position: absolute; top: 0; bottom: 70%; width: 100%; height: auto; background-color: #999999;
+                div { position: absolute; padding: 0 20px; color: #336633; font-size: 12px; }
+            }
+            div.b { position: absolute; top: 40%; bottom: 0; width: 100%; height: auto; background-color: #999999; }
+            div.b textarea,
+            div.t textarea { box-sizing: border-box; width: 100%; height: 100%; margin: 0; padding: 20px; border: none 0; color: #ffffff; font-family: Consolas; background-color: transparent; resize: none; }
+        }
+    }
+}

@@ -1,0 +1,160 @@
+﻿{
+    "Title": "Jsonql Demo.",
+    "Description": "Responsive Json Query Middleware",
+    "ServerUrl": "/jsonq",
+    "ResourceInfos": [
+        {
+            "Key": "orders",
+            "Value": "OrderDao"
+        },
+        {
+            "Key": "orderstatuschanges",
+            "Value": "OrderStatusChangeDao"
+        },
+        {
+            "Key": "useraccounts",
+            "Value": "UserAccountDao"
+        },
+        {
+            "Key": "useraccountrecords",
+            "Value": "UserAccountRecordDao"
+        },
+        {
+            "Key": "users",
+            "Value": "UserDao"
+        },
+        {
+            "Key": "userprofiles",
+            "Value": "UserProfileDao"
+        }
+    ],
+    "ResourceTypes": [
+        {
+            "Key": "OrderDao",
+            "Value": {
+                "CreateTime": "DateTimeOffset",
+                "Serial": "String",
+                "Status": "OrderStatus",
+                "User": "UserDao",
+                "StatusChanges": "OrderStatusChangeDao[]",
+                "ID": "Guid"
+            }
+        },
+        {
+            "Key": "OrderStatusChangeDao",
+            "Value": {
+                "CreateTime": "DateTimeOffset",
+                "Status": "OrderStatus",
+                "Order": "OrderDao",
+                "ID": "Guid"
+            }
+        },
+        {
+            "Key": "UserAccountDao",
+            "Value": {
+                "Coins": "Decimal",
+                "Points": "Decimal",
+                "User": "UserDao",
+                "ID": "Guid"
+            }
+        },
+        {
+            "Key": "UserAccountRecordDao",
+            "Value": {
+                "CreateTime": "DateTimeOffset",
+                "Coins": "Decimal",
+                "Points": "Decimal",
+                "Remark": "String",
+                "User": "UserDao",
+                "ID": "Guid"
+            }
+        },
+        {
+            "Key": "UserDao",
+            "Value": {
+                "CreateTime": "DateTimeOffset",
+                "Username": "String",
+                "Profile": "UserProfileDao",
+                "Account": "UserAccountDao",
+                "AccountRecords": "UserAccountRecordDao[]",
+                "Orders": "OrderDao[]",
+                "ID": "Guid"
+            }
+        },
+        {
+            "Key": "UserProfileDao",
+            "Value": {
+                "Avatar": "String",
+                "Nick": "String",
+                "User": "UserDao",
+                "ID": "Guid"
+            }
+        }
+    ],
+    "ResourceMethods": [
+        {
+            "Key": "All(predicate:String)",
+            "Value": "Boolean"
+        },
+        {
+            "Key": "Any(predicate?:String)",
+            "Value": "Boolean"
+        },
+        {
+            "Key": "Average(selector:String)",
+            "Value": "Object"
+        },
+        {
+            "Key": "Count(predicate?:String)",
+            "Value": "Int32"
+        },
+        {
+            "Key": "Distinct()",
+            "Value": "[]"
+        },
+        {
+            "Key": "GroupBy(selector:String)",
+            "Value": "[]"
+        },
+        {
+            "Key": "Max(selector:String)",
+            "Value": "Object"
+        },
+        {
+            "Key": "Min(selector:String)",
+            "Value": "Object"
+        },
+        {
+            "Key": "OrderBy(selector:String)",
+            "Value": "IOrderedResource"
+        },
+        {
+            "Key": "OrderByDescending(selector:String)",
+            "Value": "IOrderedResource"
+        },
+        {
+            "Key": "Reverse()",
+            "Value": "[]"
+        },
+        {
+            "Key": "Select(selector:String)",
+            "Value": "[]"
+        },
+        {
+            "Key": "Skip(count:Int32)",
+            "Value": "[]"
+        },
+        {
+            "Key": "Sum(selector:String)",
+            "Value": "Object"
+        },
+        {
+            "Key": "Take(count:Int32)",
+            "Value": "[]"
+        },
+        {
+            "Key": "Where(predicate:String)",
+            "Value": "[]"
+        }
+    ]
+}

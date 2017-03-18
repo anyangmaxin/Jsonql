@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Jsonql Tester</title>
+    <link rel="icon" href="favicon.ico" />
+    <link rel="stylesheet" href="css.min.css?v=1.1.6">
+    <script src="jquery-3.1.1.min.js"></script>
+    <script src="js.min.js?v=1.1.6"></script>
+</head>
+<body>
+    <header>
+        <div class="l">
+            <b>Jsonql Tester</b>
+            <a href="jsonql.html" target="_blank">What's Jsonql? See The Json Query Language</a>
+        </div>
+        <div class="r">url：<input type="text" readonly="readonly" placeholder="SERVERURL" /></div>
+    </header>
+    <main>
+        <div class="l">
+            <dl id="resources">
+                <dt>[<span>-</span>] <b>资源</b></dt>
+            </dl>
+            <dl id="types">
+                <dt>[<span>-</span>] <b>类型</b></dt>
+            </dl>
+            <dl id="methods">
+                <dt>[<span>-</span>] <b>方法</b></dt>
+            </dl>
+        </div>
+        <div class="r">
+            <div class="m">
+                <div>
+                    <label for="query">name:</label>
+                    <input type="text" value="query" id="query" />
+                    <span>&nbsp;</span>
+                    <button type="button" id="sendInQuery">Send in Query</button>
+                    <span>&nbsp;</span>
+                    <button type="button" id="sendInHeader">Send in Header</button>
+                    <span>&nbsp;</span>
+                    <label>time:</label>
+                    <span id="time">0s</span>
+                    <span>&nbsp;</span>
+                    <label>status:</label>
+                    <span id="status">0</span>
+                </div>
+            </div>
+            <div class="t">
+                <div>//在这里输入你的查询</div>
+<textarea id="request">{
+    
+}</textarea>
+            </div>
+            <div class="b">
+                <textarea id="response" readonly="readonly"></textarea>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
