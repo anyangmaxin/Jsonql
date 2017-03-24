@@ -31,58 +31,42 @@ Responsive Json Query Language，客户端发送伪Json查询，服务端返回�
 ### Demo
 ```js
 {
-    //定义变量，引用资源
-    $users: users[],
-    //取资源数量
-    usercount: $users.count(),
-    //对资源排序后枚举并创建Json对象
-    users: $users.orderBy(createtime) =>
+    //获取用户信息
+    user: users[].where(id==1) =>
     {
         uuid: $.id,                             //ID
         username,                               //用户名
         avatar,                                 //头像
-        profile:
-        {
-            nick: $.profile.nick,
-            avatar: $.profile.avatar
-        },
         account:
         {
             coins: $.account.coins,
             points: $.account.points
         }
-    }[],
-    //创建Json对象，并对字段赋值
-    ordercount:
-    { 
-        created: orders[].count(status==1),
-        payed: orders[].count(status==2),
-        delivered: orders[].count(status==3),
-        completed: orders[].count(status==4)
     },
-    //对资源枚举并创建Json对象
-    orders: orders[] =>
+    //定义一个订单资源的变量
+    $orders: orders[].where(user.id==1),
+    //订单不同状态下的数量
+    orderCount:
+    { 
+        created: $orders.count(status==1),
+        payed: $orders.count(status==2),
+        delivered: $orders.count(status==3),
+        completed: $orders.count(status==4)
+    },
+    //获取该用户的订单列表，前10条数据
+    orders: $orders.orderBy(createTime).skip(0).take(10) =>
     {
         uuid: $.id,                             //ID
         serial,                                 //订单号
-        status,                                 //订单状态
-        user:
-        {
-            uuid: $.user.id,                    //用户ID
-            username: $.user.username           //用户名称
-        },
-        statuschanges: $.statuschanges =>
-        {
-            time: $.changeTime,
-            status,
-            remark
-        }[]
+        status                                  //订单状态
     }[]
 }
 ```
 
 - Liyanjie.Jsonql.Core [![](https://img.shields.io/myget/liyanjie/v/Liyanjie.Jsonql.Core.svg)][liyanjie]
 - Liyanjie.Jsonql.Explorer [![](https://img.shields.io/myget/liyanjie/v/Liyanjie.Jsonql.Explorer.svg)][liyanjie]
+  > ###### 1.0.1 
+  > - Fill bugs.
 - Liyanjie.Jsonql.Tester [![](https://img.shields.io/myget/liyanjie/v/Liyanjie.Jsonql.Tester.svg)][liyanjie]                            
 - Liyanjie.Jsonql.DynamicEvaluation [![](https://img.shields.io/myget/liyanjie/v/Liyanjie.Jsonql.DynamicEvaluation.svg)][liyanjie]                            
 - Liyanjie.Jsonql.DynamicLinq [![](https://img.shields.io/myget/liyanjie/v/Liyanjie.Jsonql.DynamicLinq.svg)][liyanjie]                            
