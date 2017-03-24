@@ -2,7 +2,7 @@
     "title": "Liyanjie.Jsonql.Explorer",
     "description": "Jsonql Explorer",
     "copyright": "© Liyanjie.me",
-    "version": "1.0.0-*",
+    "version": "1.0.1-*",
     "authors": [ "liyanjie8712@outlook.com" ],
 
     "dependencies": {

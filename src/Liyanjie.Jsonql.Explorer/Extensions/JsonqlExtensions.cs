@@ -24,7 +24,7 @@ namespace Liyanjie.Jsonql.Explorer
         public static IEnumerable<JsonqlMethod> JsonqlMethods(this Type type)
         {
             return type
-                .GetMethods(BindingFlags.Public | BindingFlags.Instance)
+                .GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly)
                 .OrderBy(_ => _.Name)
                 .Select(_ => new JsonqlMethod
                 {

@@ -4,6 +4,7 @@
         "Liyanjie.Jsonql.DynamicEvaluation": "1.0.0-*",
         "Liyanjie.Jsonql.DynamicLinq": "1.0.0-*",
         "Liyanjie.Jsonql.Tester.AspNetCore": "1.0.0-*",
+        "Liyanjie.Jsonql.Explorer": "1.0.1-*",
         "Microsoft.AspNetCore.Diagnostics": "1.1.0",
         "Microsoft.AspNetCore.Server.IISIntegration": "1.1.0",
         "Microsoft.AspNetCore.Server.Kestrel": "1.1.0",
