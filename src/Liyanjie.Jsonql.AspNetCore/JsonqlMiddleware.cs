@@ -1,12 +1,12 @@
-﻿using Liyanjie.Jsonql.Core;
+﻿using System;
+using System.IO;
+using System.Threading.Tasks;
+using Liyanjie.Jsonql.Core;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.Routing.Template;
 using Microsoft.Extensions.Options;
-using System;
-using System.IO;
-using System.Threading.Tasks;
 
 namespace Liyanjie.Jsonql.AspNetCore
 {
@@ -30,17 +30,13 @@ namespace Liyanjie.Jsonql.AspNetCore
             IOptions<JsonqlOptions> jsonqlOptions,
             string routeTemplate)
         {
-            if (next == null)
-                throw new ArgumentNullException(nameof(next));
-            this.next = next;
+            this.next = next ?? throw new ArgumentNullException(nameof(next));
 
             if (jsonqlOptions == null)
                 throw new ArgumentNullException(nameof(jsonqlOptions));
             this.jsonqlOptions = jsonqlOptions.Value;
 
-            if (routeTemplate == null)
-                throw new ArgumentNullException(nameof(routeTemplate));
-            this.routeTemplate = routeTemplate;
+            this.routeTemplate = routeTemplate ?? throw new ArgumentNullException(nameof(routeTemplate));
         }
 
         /// <summary>
@@ -50,8 +46,7 @@ namespace Liyanjie.Jsonql.AspNetCore
         /// <returns></returns>
         public async Task Invoke(HttpContext httpContext)
         {
-            string query;
-            if (matchRequesting(httpContext.Request, out query))
+            if (matchRequesting(httpContext.Request, out string query))
             {
                 if (!(jsonqlOptions.Authorize?.Invoke(httpContext) ?? true))
                 {

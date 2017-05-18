@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net45;netstandard1.1;</TargetFrameworks>
+    <Description>Jsonql Tester</Description>
+    <Copyright>© Liyanjie.me</Copyright>
+    <Authors>liyanjie8712@outlook.com</Authors>
+    <Company>Liyanjie.me</Company>
+    <RepositoryUrl>https://github.com/liyanjie8712/Jsonql</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/liyanjie8712/Jsonql</PackageProjectUrl>
+    <RepositoryType>Git</RepositoryType>
+    <SignAssembly>True</SignAssembly>
+    <AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net45|AnyCPU'">
+    <DocumentationFile>bin\Release\net45\Liyanjie.Jsonql.Tester.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard1.1|AnyCPU'">
+    <DocumentationFile>bin\Release\netstandard1.1\Liyanjie.Jsonql.Tester.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <Target Name="CopyPackage" AfterTargets="Pack">
+    <Copy SourceFiles="$(OutputPath)$(PackageId).$(PackageVersion).nupkg" DestinationFolder="C:\Users\Administrator\Documents\Packages\" />
+  </Target>
+
+  <ItemGroup>
+    <EmbeddedResource Include="static\css.min.css;static\favicon.ico;static\index.html;static\jquery-3.1.1.min.js;static\js.min.js;static\jsonql.html" Exclude="bin\**;obj\**;**\*.xproj;packages\**;@(EmbeddedResource)" />
+  </ItemGroup>
+
+</Project>

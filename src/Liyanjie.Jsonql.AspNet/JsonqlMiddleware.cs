@@ -1,9 +1,9 @@
-﻿using Liyanjie.Jsonql.Core;
-using Liyanjie.TemplateMatching;
-using System;
+﻿using System;
 using System.IO;
 using System.Web;
 using System.Web.Routing;
+using Liyanjie.Jsonql.Core;
+using Liyanjie.TemplateMatching;
 
 namespace Liyanjie.Jsonql.AspNet
 {
@@ -16,13 +16,8 @@ namespace Liyanjie.Jsonql.AspNet
             JsonqlOptions jsonqlOptions,
             string routeTemplate)
         {
-            if (jsonqlOptions == null)
-                throw new ArgumentNullException(nameof(jsonqlOptions));
-            this.jsonqlOptions = jsonqlOptions;
-
-            if (routeTemplate == null)
-                throw new ArgumentNullException(nameof(routeTemplate));
-            this.routeTemplate = routeTemplate;
+            this.jsonqlOptions = jsonqlOptions ?? throw new ArgumentNullException(nameof(jsonqlOptions));
+            this.routeTemplate = routeTemplate ?? throw new ArgumentNullException(nameof(routeTemplate));
         }
 
         public bool Invoke(HttpContext httpContext)

@@ -30,7 +30,7 @@ namespace System.Web
         /// </summary>
         /// <param name="app"></param>
         /// <param name="routeTemplate"></param>
-        public static HttpApplication UseJsonql(this HttpApplication app, string routeTemplate = "/jsonql")
+        public static HttpApplication UseJsonql(this HttpApplication app, string routeTemplate = "jsonql")
         {
             if (new JsonqlMiddleware(JsonOptions, routeTemplate).Invoke(app.Context))
                 app.Context.Response.End();

@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net45</TargetFrameworks>
+    <Description>Jsonql Tester for AspNet</Description>
+    <Copyright>© Liyanjie.me</Copyright>
+    <Authors>liyanjie8712@outlook.com</Authors>
+    <Company>Liyanjie.me</Company>
+    <RepositoryUrl>https://github.com/liyanjie8712/Jsonql</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/liyanjie8712/Jsonql</PackageProjectUrl>
+    <RepositoryType>Git</RepositoryType>
+    <SignAssembly>True</SignAssembly>
+    <AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net45|AnyCPU'">
+    <DocumentationFile>bin\Release\net45\Liyanjie.Jsonql.Tester.AspNet.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <Target Name="CopyPackage" AfterTargets="Pack">
+    <Copy SourceFiles="$(OutputPath)$(PackageId).$(PackageVersion).nupkg" DestinationFolder="C:\Users\Administrator\Documents\Packages\" />
+  </Target>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Liyanjie.Jsonql.AspNet\Liyanjie.Jsonql.AspNet.csproj" />
+    <ProjectReference Include="..\Liyanjie.Jsonql.Explorer\Liyanjie.Jsonql.Explorer.csproj" />
+    <ProjectReference Include="..\Liyanjie.Jsonql.Tester\Liyanjie.Jsonql.Tester.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Liyanjie.TemplateMatching" Version="1.0.0" />
+  </ItemGroup>
+
+</Project>

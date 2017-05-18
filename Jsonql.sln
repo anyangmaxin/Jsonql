@@ -1,0 +1,105 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.6
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D2D33C85-F5F8-4258-AEFA-511014A8E94A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BBAF7F5C-F6DE-466B-9342-A268696F97B5}"
+	ProjectSection(SolutionItems) = preProject
+		.tfignore = .tfignore
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sample", "sample", "{CA9E52BA-B4B3-4736-80F0-075C5087CA01}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Liyanjie.Jsonql.Core", "src\Liyanjie.Jsonql.Core\Liyanjie.Jsonql.Core.csproj", "{CF700042-2B99-44EE-B8A9-A88F851E267A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Liyanjie.Jsonql.Explorer", "src\Liyanjie.Jsonql.Explorer\Liyanjie.Jsonql.Explorer.csproj", "{3E7AA04B-FB2B-43BC-BD23-B53CAAC87C89}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Liyanjie.Jsonql.Tester", "src\Liyanjie.Jsonql.Tester\Liyanjie.Jsonql.Tester.csproj", "{D9F73C7A-BBAE-47A5-9CB5-ABE674405806}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Liyanjie.Jsonql.DynamicEvaluation", "src\Liyanjie.Jsonql.DynamicEvaluation\Liyanjie.Jsonql.DynamicEvaluation.csproj", "{7D44F9A2-FFBF-489D-9E74-4C7BE66741E0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Liyanjie.Jsonql.DynamicLinq", "src\Liyanjie.Jsonql.DynamicLinq\Liyanjie.Jsonql.DynamicLinq.csproj", "{9576E6D3-980B-4403-ACC7-FB9F92746E23}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Liyanjie.Jsonql.Tester.AspNet", "src\Liyanjie.Jsonql.Tester.AspNet\Liyanjie.Jsonql.Tester.AspNet.csproj", "{B4FBFF2E-CF84-498E-A4C9-D2EF0AF70114}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Liyanjie.Jsonql.AspNet", "src\Liyanjie.Jsonql.AspNet\Liyanjie.Jsonql.AspNet.csproj", "{73829113-A1F5-42C6-AFF6-CB1A03E92184}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Liyanjie.Jsonql.Tester.AspNetCore", "src\Liyanjie.Jsonql.Tester.AspNetCore\Liyanjie.Jsonql.Tester.AspNetCore.csproj", "{BDC964FD-C591-4B26-A20A-E3319C10AEA5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Liyanjie.Jsonql.AspNetCore", "src\Liyanjie.Jsonql.AspNetCore\Liyanjie.Jsonql.AspNetCore.csproj", "{451824AA-CCB7-4064-8189-6202C909DFAD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Liyanjie.Jsonql.Sample.AspNetCore", "sample\Liyanjie.Jsonql.Sample.AspNetCore\Liyanjie.Jsonql.Sample.AspNetCore.csproj", "{18F5D02F-2722-4710-BD05-54A7750DB892}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Liyanjie.Jsonql.Sample.AspNet", "sample\Liyanjie.Jsonql.Sample.AspNet\Liyanjie.Jsonql.Sample.AspNet.csproj", "{7FFA600C-1802-4A99-8CB7-CD4C2AC4778C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CF700042-2B99-44EE-B8A9-A88F851E267A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF700042-2B99-44EE-B8A9-A88F851E267A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF700042-2B99-44EE-B8A9-A88F851E267A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF700042-2B99-44EE-B8A9-A88F851E267A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E7AA04B-FB2B-43BC-BD23-B53CAAC87C89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E7AA04B-FB2B-43BC-BD23-B53CAAC87C89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E7AA04B-FB2B-43BC-BD23-B53CAAC87C89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E7AA04B-FB2B-43BC-BD23-B53CAAC87C89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9F73C7A-BBAE-47A5-9CB5-ABE674405806}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9F73C7A-BBAE-47A5-9CB5-ABE674405806}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9F73C7A-BBAE-47A5-9CB5-ABE674405806}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9F73C7A-BBAE-47A5-9CB5-ABE674405806}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D44F9A2-FFBF-489D-9E74-4C7BE66741E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D44F9A2-FFBF-489D-9E74-4C7BE66741E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D44F9A2-FFBF-489D-9E74-4C7BE66741E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D44F9A2-FFBF-489D-9E74-4C7BE66741E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9576E6D3-980B-4403-ACC7-FB9F92746E23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9576E6D3-980B-4403-ACC7-FB9F92746E23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9576E6D3-980B-4403-ACC7-FB9F92746E23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9576E6D3-980B-4403-ACC7-FB9F92746E23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4FBFF2E-CF84-498E-A4C9-D2EF0AF70114}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4FBFF2E-CF84-498E-A4C9-D2EF0AF70114}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4FBFF2E-CF84-498E-A4C9-D2EF0AF70114}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4FBFF2E-CF84-498E-A4C9-D2EF0AF70114}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73829113-A1F5-42C6-AFF6-CB1A03E92184}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73829113-A1F5-42C6-AFF6-CB1A03E92184}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73829113-A1F5-42C6-AFF6-CB1A03E92184}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73829113-A1F5-42C6-AFF6-CB1A03E92184}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDC964FD-C591-4B26-A20A-E3319C10AEA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDC964FD-C591-4B26-A20A-E3319C10AEA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDC964FD-C591-4B26-A20A-E3319C10AEA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDC964FD-C591-4B26-A20A-E3319C10AEA5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{451824AA-CCB7-4064-8189-6202C909DFAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{451824AA-CCB7-4064-8189-6202C909DFAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{451824AA-CCB7-4064-8189-6202C909DFAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{451824AA-CCB7-4064-8189-6202C909DFAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18F5D02F-2722-4710-BD05-54A7750DB892}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18F5D02F-2722-4710-BD05-54A7750DB892}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18F5D02F-2722-4710-BD05-54A7750DB892}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18F5D02F-2722-4710-BD05-54A7750DB892}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FFA600C-1802-4A99-8CB7-CD4C2AC4778C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FFA600C-1802-4A99-8CB7-CD4C2AC4778C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FFA600C-1802-4A99-8CB7-CD4C2AC4778C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FFA600C-1802-4A99-8CB7-CD4C2AC4778C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CF700042-2B99-44EE-B8A9-A88F851E267A} = {D2D33C85-F5F8-4258-AEFA-511014A8E94A}
+		{3E7AA04B-FB2B-43BC-BD23-B53CAAC87C89} = {D2D33C85-F5F8-4258-AEFA-511014A8E94A}
+		{D9F73C7A-BBAE-47A5-9CB5-ABE674405806} = {D2D33C85-F5F8-4258-AEFA-511014A8E94A}
+		{7D44F9A2-FFBF-489D-9E74-4C7BE66741E0} = {D2D33C85-F5F8-4258-AEFA-511014A8E94A}
+		{9576E6D3-980B-4403-ACC7-FB9F92746E23} = {D2D33C85-F5F8-4258-AEFA-511014A8E94A}
+		{B4FBFF2E-CF84-498E-A4C9-D2EF0AF70114} = {D2D33C85-F5F8-4258-AEFA-511014A8E94A}
+		{73829113-A1F5-42C6-AFF6-CB1A03E92184} = {D2D33C85-F5F8-4258-AEFA-511014A8E94A}
+		{BDC964FD-C591-4B26-A20A-E3319C10AEA5} = {D2D33C85-F5F8-4258-AEFA-511014A8E94A}
+		{451824AA-CCB7-4064-8189-6202C909DFAD} = {D2D33C85-F5F8-4258-AEFA-511014A8E94A}
+		{18F5D02F-2722-4710-BD05-54A7750DB892} = {CA9E52BA-B4B3-4736-80F0-075C5087CA01}
+		{7FFA600C-1802-4A99-8CB7-CD4C2AC4778C} = {CA9E52BA-B4B3-4736-80F0-075C5087CA01}
+	EndGlobalSection
+EndGlobal
