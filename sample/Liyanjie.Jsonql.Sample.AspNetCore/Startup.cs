@@ -1,12 +1,11 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
 
 namespace Liyanjie.Jsonql.Sample.AspNetCore
 {
@@ -33,8 +32,8 @@ namespace Liyanjie.Jsonql.Sample.AspNetCore
                 .AddOptions()
                 .AddDbContext<DbContext>((provider, builder) =>
                 {
-                    //builder.UseSqlServer(Configuration.GetSection("ConnectionStrings")["SqlServer"]);
-                    builder.UseSqlite(Configuration.GetSection("ConnectionStrings")["Sqlite"]);
+                    builder.UseSqlServer(Configuration.GetSection("ConnectionStrings")["SqlServer"]);
+                    //builder.UseSqlite(Configuration.GetSection("ConnectionStrings")["Sqlite"]);
                 }, ServiceLifetime.Scoped)
 
                 //配置Jsonql的资源列表
@@ -49,8 +48,9 @@ namespace Liyanjie.Jsonql.Sample.AspNetCore
                         .AddResource("users", dbContext.Users)
                         .AddResource("userprofiles", dbContext.UserProfiles);
                     options.Authorize = context => true;
-                    options.DynamicEvaluator = new Liyanjie.Jsonql.DynamicEvaluation.DynamicEvaluator();
-                    options.DynamicLinq = new Liyanjie.Jsonql.DynamicLinq.DynamicLinq();
+                    options.JsonqlIncluder = new Liyanjie.Jsonql.DynamicInclude.JsonqlIncluder();
+                    options.JsonqlEvaluator = new Liyanjie.Jsonql.DynamicEvaluation.DynamicJsonqlEvaluator();
+                    options.JsonqlLinqer = new Liyanjie.Jsonql.DynamicLinq.DynamicJsonqlLinqer();
                 });
         }
 

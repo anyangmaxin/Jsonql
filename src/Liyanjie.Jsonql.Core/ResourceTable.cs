@@ -11,7 +11,7 @@ namespace Liyanjie.Jsonql.Core
     {
         readonly IDictionary<string, Type> types = new Dictionary<string, Type>();
         readonly IDictionary<string, IQueryable> queryables = new Dictionary<string, IQueryable>();
-        readonly IDictionary<string, Action<IQueryable, IAuthorization>> filters = new Dictionary<string, Action<IQueryable, IAuthorization>>();
+        readonly IDictionary<string, Action<IQueryable, IJsonqlAuthorization>> filters = new Dictionary<string, Action<IQueryable, IJsonqlAuthorization>>();
 
         /// <summary>
         /// 
@@ -21,7 +21,7 @@ namespace Liyanjie.Jsonql.Core
         /// <param name="queryable"></param>
         /// <param name="filter"></param>
         /// <returns></returns>
-        public ResourceTable AddResource<T>(string name, IQueryable queryable, Action<IQueryable, IAuthorization> filter = null)
+        public ResourceTable AddResource<T>(string name, IQueryable queryable, Action<IQueryable, IJsonqlAuthorization> filter = null)
         {
             types.Add(name, typeof(T));
             queryables.Add(name, queryable);
@@ -37,7 +37,7 @@ namespace Liyanjie.Jsonql.Core
         /// <param name="queryable"></param>
         /// <param name="filter"></param>
         /// <returns></returns>
-        public ResourceTable AddResource<T>(string name, IQueryable<T> queryable, Action<IQueryable, IAuthorization> filter = null)
+        public ResourceTable AddResource<T>(string name, IQueryable<T> queryable, Action<IQueryable, IJsonqlAuthorization> filter = null)
         {
             types.Add(name, typeof(T));
             queryables.Add(name, queryable);
@@ -45,7 +45,7 @@ namespace Liyanjie.Jsonql.Core
             return this;
         }
 
-        internal Resource GetResource(string template, IAuthorization authorization, IDynamicLinq dynamicLinq = null)
+        internal Resource GetResource(string template, IJsonqlAuthorization jsonqlAuthorization, IJsonqlIncluder jsonqlIncluder = null, IJsonqlLinqer jsonqlLinqer = null)
         {
             var name = template.Substring(0, template.IndexOf("[]"));
 
@@ -54,9 +54,9 @@ namespace Liyanjie.Jsonql.Core
                 return null;
 
             if (filters.ContainsKey(name))
-                filters[name]?.Invoke(queryable, authorization);
+                filters[name]?.Invoke(queryable, jsonqlAuthorization);
 
-            return new Resource(queryable, dynamicLinq);
+            return new Resource(queryable, jsonqlIncluder, jsonqlLinqer);
         }
 
         /// <summary>

@@ -11,28 +11,45 @@ namespace Liyanjie.Jsonql.Core
         /// 
         /// </summary>
         /// <param name="queryable"></param>
-        /// <param name="dynamicLinq"></param>
-        public Resource(IQueryable queryable, IDynamicLinq dynamicLinq)
+        /// <param name="jsonqlIncluder"></param>
+        /// <param name="jsonqlLinqer"></param>
+        public Resource(IQueryable queryable, IJsonqlIncluder jsonqlIncluder, IJsonqlLinqer jsonqlLinqer)
         {
             Queryable = queryable;
-            DynamicLinq = dynamicLinq;
+            JsonqlIncluder = jsonqlIncluder;
+            JsonqlLinqer = jsonqlLinqer;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        protected readonly IDynamicLinq DynamicLinq;
+        internal IQueryable Queryable { get; private set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        protected readonly IJsonqlIncluder JsonqlIncluder;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        protected readonly IJsonqlLinqer JsonqlLinqer;
 
         /// <summary>
         /// 
         /// </summary>
         protected object[] parameters { get; private set; }
 
-        internal IQueryable Queryable { get; private set; }
-
         internal Resource SetParameters(params object[] parameters)
         {
             this.parameters = parameters;
+            return this;
+        }
+
+        internal Resource Include(params string[] paths)
+        {
+            if (JsonqlIncluder != null)
+                Queryable = JsonqlIncluder.Include(Queryable, paths);
             return this;
         }
 
@@ -43,7 +60,7 @@ namespace Liyanjie.Jsonql.Core
         /// <returns></returns>
         public bool All(string predicate)
         {
-            return DynamicLinq.All(Queryable, predicate, parameters);
+            return JsonqlLinqer.All(Queryable, predicate, parameters);
         }
 
         /// <summary>
@@ -54,9 +71,9 @@ namespace Liyanjie.Jsonql.Core
         public bool Any(string predicate = null)
         {
             if (predicate == null)
-                return DynamicLinq.Any(Queryable);
+                return JsonqlLinqer.Any(Queryable);
             else
-                return DynamicLinq.Any(Queryable, predicate, parameters);
+                return JsonqlLinqer.Any(Queryable, predicate, parameters);
         }
 
         /// <summary>
@@ -66,7 +83,7 @@ namespace Liyanjie.Jsonql.Core
         /// <returns></returns>
         public object Average(string selector)
         {
-            return DynamicLinq.Average<double>(Queryable, selector, parameters);
+            return JsonqlLinqer.Average<double>(Queryable, selector, parameters);
         }
 
         /// <summary>
@@ -77,9 +94,9 @@ namespace Liyanjie.Jsonql.Core
         public int Count(string predicate = null)
         {
             if (predicate == null)
-                return DynamicLinq.Count(Queryable);
+                return JsonqlLinqer.Count(Queryable);
             else
-                return DynamicLinq.Count(Queryable, predicate, parameters);
+                return JsonqlLinqer.Count(Queryable, predicate, parameters);
         }
 
         /// <summary>
@@ -88,7 +105,7 @@ namespace Liyanjie.Jsonql.Core
         /// <returns></returns>
         public Resource Distinct()
         {
-            return new Resource(DynamicLinq.Distinct(Queryable), DynamicLinq);
+            return new Resource(JsonqlLinqer.Distinct(Queryable), JsonqlIncluder, JsonqlLinqer);
         }
 
         /// <summary>
@@ -98,7 +115,7 @@ namespace Liyanjie.Jsonql.Core
         /// <returns></returns>
         public Resource GroupBy(string selector)
         {
-            return new Resource(DynamicLinq.GroupBy(Queryable, selector, parameters), DynamicLinq);
+            return new Resource(JsonqlLinqer.GroupBy(Queryable, selector, parameters), JsonqlIncluder, JsonqlLinqer);
         }
 
         /// <summary>
@@ -108,7 +125,7 @@ namespace Liyanjie.Jsonql.Core
         /// <returns></returns>
         public object Max(string selector)
         {
-            return DynamicLinq.Max<double>(Queryable, selector, parameters);
+            return JsonqlLinqer.Max<double>(Queryable, selector, parameters);
         }
 
         /// <summary>
@@ -118,7 +135,7 @@ namespace Liyanjie.Jsonql.Core
         /// <returns></returns>
         public object Min(string selector)
         {
-            return DynamicLinq.Min<double>(Queryable, selector, parameters);
+            return JsonqlLinqer.Min<double>(Queryable, selector, parameters);
         }
 
         /// <summary>
@@ -128,7 +145,7 @@ namespace Liyanjie.Jsonql.Core
         /// <returns></returns>
         public Resource_Ordered OrderBy(string selector)
         {
-            return new Resource_Ordered(DynamicLinq.OrderBy(Queryable, selector, parameters), DynamicLinq);
+            return new Resource_Ordered(JsonqlLinqer.OrderBy(Queryable, selector, parameters), JsonqlIncluder, JsonqlLinqer);
         }
 
         /// <summary>
@@ -138,7 +155,7 @@ namespace Liyanjie.Jsonql.Core
         /// <returns></returns>
         public Resource_Ordered OrderByDescending(string selector)
         {
-            return new Resource_Ordered(DynamicLinq.OrderByDescending(Queryable, selector, parameters), DynamicLinq);
+            return new Resource_Ordered(JsonqlLinqer.OrderByDescending(Queryable, selector, parameters), JsonqlIncluder, JsonqlLinqer);
         }
 
         /// <summary>
@@ -148,7 +165,7 @@ namespace Liyanjie.Jsonql.Core
         /// <returns></returns>
         public Resource Select(string selector)
         {
-            return new Resource(DynamicLinq.Select(Queryable, selector, parameters), DynamicLinq);
+            return new Resource(JsonqlLinqer.Select(Queryable, selector, parameters), JsonqlIncluder, JsonqlLinqer);
         }
 
         /// <summary>
@@ -158,7 +175,7 @@ namespace Liyanjie.Jsonql.Core
         /// <returns></returns>
         public Resource Skip(int count)
         {
-            return new Resource(DynamicLinq.Skip(Queryable, count), DynamicLinq);
+            return new Resource(JsonqlLinqer.Skip(Queryable, count), JsonqlIncluder, JsonqlLinqer);
         }
 
         /// <summary>
@@ -168,7 +185,7 @@ namespace Liyanjie.Jsonql.Core
         /// <returns></returns>
         public object Sum(string selector)
         {
-            return DynamicLinq.Sum<double>(Queryable, selector, parameters);
+            return JsonqlLinqer.Sum<double>(Queryable, selector, parameters);
         }
 
         /// <summary>
@@ -178,7 +195,7 @@ namespace Liyanjie.Jsonql.Core
         /// <returns></returns>
         public Resource Take(int count)
         {
-            return new Resource(DynamicLinq.Take(Queryable, count), DynamicLinq);
+            return new Resource(JsonqlLinqer.Take(Queryable, count), JsonqlIncluder, JsonqlLinqer);
         }
 
         /// <summary>
@@ -188,7 +205,7 @@ namespace Liyanjie.Jsonql.Core
         /// <returns></returns>
         public Resource Where(string predicate)
         {
-            return new Resource(DynamicLinq.Where(Queryable, predicate, parameters), DynamicLinq);
+            return new Resource(JsonqlLinqer.Where(Queryable, predicate, parameters), JsonqlIncluder, JsonqlLinqer);
         }
 
         /// <summary>
@@ -209,8 +226,9 @@ namespace Liyanjie.Jsonql.Core
         /// 
         /// </summary>
         /// <param name="orderedQueryable"></param>
-        /// <param name="dynamicLinq"></param>
-        public Resource_Ordered(IOrderedQueryable orderedQueryable, IDynamicLinq dynamicLinq) : base(orderedQueryable, dynamicLinq)
+        /// <param name="jsonqlIncluder"></param>
+        /// <param name="jsonqlLinqer"></param>
+        public Resource_Ordered(IOrderedQueryable orderedQueryable, IJsonqlIncluder jsonqlIncluder, IJsonqlLinqer jsonqlLinqer) : base(orderedQueryable, jsonqlIncluder, jsonqlLinqer)
         {
             OrderedQueryable = orderedQueryable;
         }
@@ -224,7 +242,7 @@ namespace Liyanjie.Jsonql.Core
         /// <returns></returns>
         public Resource_Ordered ThenBy(string selector)
         {
-            return new Resource_Ordered(DynamicLinq.ThenBy(OrderedQueryable, selector, parameters), DynamicLinq);
+            return new Resource_Ordered(JsonqlLinqer.ThenBy(OrderedQueryable, selector, parameters), JsonqlIncluder, JsonqlLinqer);
         }
 
         /// <summary>
@@ -234,7 +252,7 @@ namespace Liyanjie.Jsonql.Core
         /// <returns></returns>
         public Resource_Ordered ThenByDescending(string selector)
         {
-            return new Resource_Ordered(DynamicLinq.ThenByDescending(OrderedQueryable, selector, parameters), DynamicLinq);
+            return new Resource_Ordered(JsonqlLinqer.ThenByDescending(OrderedQueryable, selector, parameters), JsonqlIncluder, JsonqlLinqer);
         }
 
         /// <summary>

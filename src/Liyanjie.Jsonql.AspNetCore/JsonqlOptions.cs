@@ -1,6 +1,6 @@
-﻿using Liyanjie.Jsonql.Core;
+﻿using System;
+using Liyanjie.Jsonql.Core;
 using Microsoft.AspNetCore.Http;
-using System;
 
 namespace Microsoft.AspNetCore.Builder
 {
@@ -29,11 +29,16 @@ namespace Microsoft.AspNetCore.Builder
         /// <summary>
         /// 
         /// </summary>
-        public IDynamicEvaluator DynamicEvaluator { internal get; set; }
+        public IJsonqlIncluder JsonqlIncluder { internal get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public IDynamicLinq DynamicLinq { internal get; set; }
+        public IJsonqlEvaluator JsonqlEvaluator { internal get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public IJsonqlLinqer JsonqlLinqer { internal get; set; }
     }
 }

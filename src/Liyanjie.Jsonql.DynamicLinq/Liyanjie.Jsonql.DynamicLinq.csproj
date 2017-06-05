@@ -1,21 +1,30 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <TargetFrameworks>net45;netstandard1.5;</TargetFrameworks>
     <Description>Jsonql DynamicLinq</Description>
     <Copyright>© Liyanjie.me</Copyright>
-    <AssemblyTitle>Liyanjie.Jsonql.DynamicLinq</AssemblyTitle>
     <Authors>liyanjie8712@outlook.com</Authors>
-    <TargetFrameworks>netstandard1.5;net45</TargetFrameworks>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <AssemblyName>Liyanjie.Jsonql.DynamicLinq</AssemblyName>
-    <AssemblyOriginatorKeyFile>../../tools/key.snk</AssemblyOriginatorKeyFile>
-    <SignAssembly>true</SignAssembly>
-    <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
-    <PackageId>Liyanjie.Jsonql.DynamicLinq</PackageId>
-    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
-    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
-    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+    <Company>Liyanjie.me</Company>
+    <RepositoryUrl>https://github.com/liyanjie8712/Jsonql</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/liyanjie8712/Jsonql</PackageProjectUrl>
+    <RepositoryType>Git</RepositoryType>
+    <SignAssembly>True</SignAssembly>
+    <AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
+    <Version>1.1.0</Version>
   </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net45|AnyCPU'">
+    <DocumentationFile>bin\Release\net45\Liyanjie.Jsonql.DynamicLinq.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard1.5|AnyCPU'">
+    <DocumentationFile>bin\Release\netstandard1.5\Liyanjie.Jsonql.DynamicLinq.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <Target Name="CopyPackage" AfterTargets="Pack">
+    <Copy SourceFiles="$(OutputPath)$(PackageId).$(PackageVersion).nupkg" DestinationFolder="C:\Users\Administrator\Documents\Packages\" />
+  </Target>
 
   <ItemGroup>
     <ProjectReference Include="..\Liyanjie.Jsonql.Core\Liyanjie.Jsonql.Core.csproj" />
@@ -23,19 +32,6 @@
 
   <ItemGroup>
     <PackageReference Include="Liyanjie.Linq.Dynamic" Version="1.0.0" />
-  </ItemGroup>
-
-  <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard1.5' ">
-    <DefineConstants>$(DefineConstants);NETSTANDARD</DefineConstants>
-  </PropertyGroup>
-
-  <PropertyGroup Condition=" '$(TargetFramework)' == 'net45' ">
-    <DefineConstants>$(DefineConstants);NETFRAMEWORK</DefineConstants>
-  </PropertyGroup>
-
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
-    <Reference Include="System" />
-    <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
 
 </Project>

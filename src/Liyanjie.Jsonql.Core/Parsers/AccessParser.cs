@@ -5,7 +5,12 @@ using System.Text.RegularExpressions;
 
 namespace Liyanjie.Jsonql.Core.Parsers
 {
-    internal sealed class AccessParser : IDisposable
+#if DEBUG
+    public
+#else
+    internal sealed
+#endif
+    class AccessParser : IDisposable
     {
         string pattern = @"\([^\(\)]*\)";
         string template;

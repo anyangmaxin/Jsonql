@@ -4,7 +4,12 @@ using System.Text.RegularExpressions;
 
 namespace Liyanjie.Jsonql.Core.Parsers
 {
-    internal sealed class MethodParser
+#if DEBUG
+    public
+#else
+    internal sealed
+#endif
+    class MethodParser
     {
         readonly string template;
 

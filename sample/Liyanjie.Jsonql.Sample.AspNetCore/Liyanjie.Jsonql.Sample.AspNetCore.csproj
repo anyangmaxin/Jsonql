@@ -13,6 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\Liyanjie.Jsonql.AspNetCore\Liyanjie.Jsonql.AspNetCore.csproj" />
     <ProjectReference Include="..\..\src\Liyanjie.Jsonql.DynamicEvaluation\Liyanjie.Jsonql.DynamicEvaluation.csproj" />
+    <ProjectReference Include="..\..\src\Liyanjie.Jsonql.DynamicInclude.EFCore\Liyanjie.Jsonql.DynamicInclude.EFCore.csproj" />
     <ProjectReference Include="..\..\src\Liyanjie.Jsonql.DynamicLinq\Liyanjie.Jsonql.DynamicLinq.csproj" />
     <ProjectReference Include="..\..\src\Liyanjie.Jsonql.Tester.AspNetCore\Liyanjie.Jsonql.Tester.AspNetCore.csproj" />
     <ProjectReference Include="..\..\src\Liyanjie.Jsonql.Explorer\Liyanjie.Jsonql.Explorer.csproj" />
@@ -25,12 +26,9 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="1.1.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="1.1.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="1.1.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="1.1.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="1.1.2" />
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="1.1.2" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="1.0.0" />
   </ItemGroup>
 
 </Project>

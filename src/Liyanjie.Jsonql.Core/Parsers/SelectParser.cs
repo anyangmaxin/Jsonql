@@ -4,7 +4,12 @@ using System.Linq;
 
 namespace Liyanjie.Jsonql.Core.Parsers
 {
-    internal sealed class SelectParser
+#if DEBUG
+    public
+#else
+    internal sealed
+#endif
+    class SelectParser
     {
         readonly IDictionary<string, string> templates;
 
@@ -25,12 +30,15 @@ namespace Liyanjie.Jsonql.Core.Parsers
             if (template.StartsWith("#"))
             {
                 template = templates[template];
-                var properties = template.TrimStart('{').TrimEnd('}').Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Where(_ => _.IndexOf("=>") < 0);
+                var properties = template.TrimStart('{').TrimEnd('}').Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);//.Where(_ => _.IndexOf("=>") < 0);
                 foreach (var property in properties)
                 {
                     if (property.IndexOf(':') > -1)
                     {
-                        var namedProperty = property.Split(':');
+                        var tmp_property = property;
+                        if (property.IndexOf("=>") > -1)
+                            tmp_property = property.Substring(0, property.IndexOf("=>"));
+                        var namedProperty = tmp_property.Split(':');
                         if (namedProperty[1].StartsWith("$."))
                         {
                             var segment = namedProperty[1].Substring(2);

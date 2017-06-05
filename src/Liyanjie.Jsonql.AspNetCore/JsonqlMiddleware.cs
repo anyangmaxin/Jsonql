@@ -57,9 +57,9 @@ namespace Liyanjie.Jsonql.AspNetCore
 
                 if (!string.IsNullOrEmpty(query))
                 {
-                    using (var queryHandler = new QueryHandler(jsonqlOptions.Resources, jsonqlOptions.DynamicEvaluator, jsonqlOptions.DynamicLinq))
+                    using (var queryHandler = new QueryHandler(jsonqlOptions.Resources, jsonqlOptions.JsonqlIncluder, jsonqlOptions.JsonqlLinqer, jsonqlOptions.JsonqlEvaluator))
                     {
-                        var content = await queryHandler.Handle(query, new Authorization(httpContext));
+                        var content = await queryHandler.Handle(query, new JsonqlAuthorization(httpContext));
                         await respondDocument(httpContext.Response, content);
                     }
                 }

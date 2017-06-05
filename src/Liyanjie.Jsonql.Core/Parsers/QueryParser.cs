@@ -4,7 +4,12 @@ using System.Text.RegularExpressions;
 
 namespace Liyanjie.Jsonql.Core.Parsers
 {
-    internal sealed class QueryParser : IDisposable
+#if DEBUG
+    public
+#else
+    internal sealed
+#endif
+    class QueryParser : IDisposable
     {
         const string regex_Resource = @"[a-zA-Z_]\w*\[\]";
         const string regex_Expression = @"{{[^{}]*}}";
@@ -22,45 +27,44 @@ namespace Liyanjie.Jsonql.Core.Parsers
             var queue = new Queue<char>();
             var quota1 = false;
             var quota2 = false;
-            foreach (var c in query)
+            foreach (var @char in query)
             {
-                if (c == '\'')
+                if (@char == '\'')
                 {
-                    queue.Enqueue(c);
+                    queue.Enqueue(@char);
                     if (!quota2)
                         quota1 = !quota1;
                 }
-                if (c == '"')
+                if (@char == '"')
                 {
-                    queue.Enqueue(c);
+                    queue.Enqueue(@char);
                     if (!quota1)
                         quota2 = !quota2;
                 }
-                else if (c == '@' || c == '#')
+                else if (@char == '@' || @char == '#')
                 {
                     if (quota1 || quota2)
-                        queue.Enqueue(c);
+                        queue.Enqueue(@char);
                     else
                         throw new Exception("Parse query error!");
                 }
-                else if (c == 9 || c == 10 || c == 13 || c == 32)
+                else if (@char == 9 || @char == 10 || @char == 13 || @char == 32)
                 {
                     if (quota1 || quota2)
-                        queue.Enqueue(c);
+                        queue.Enqueue(@char);
                 }
-                else if (c < 32)
+                else if (@char < 32)
                 {
                     if (quota1 || quota2)
-                        queue.Enqueue(c);
+                        queue.Enqueue(@char);
                     else
                         throw new Exception("Parse query error!");
                 }
                 else
-                    queue.Enqueue(c);
+                    queue.Enqueue(@char);
             }
 
             var @string = string.Join(string.Empty, queue.ToArray());
-
             {
                 foreach (var item in Regex.Matches(@string, regex_Resource))
                 {
@@ -74,7 +78,6 @@ namespace Liyanjie.Jsonql.Core.Parsers
                     }
                 }
             }
-
             {
                 foreach (var item in Regex.Matches(@string, regex_Expression))
                 {
@@ -110,6 +113,7 @@ namespace Liyanjie.Jsonql.Core.Parsers
         public void Dispose()
         {
             resources?.Clear();
+            expressions?.Clear();
             templates?.Clear();
         }
 

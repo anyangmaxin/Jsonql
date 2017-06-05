@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net45</TargetFrameworks>
-    <Description>Jsonql for AspNet</Description>
+    <TargetFrameworks>net451;netstandard1.3;</TargetFrameworks>
+    <Description>Jsonql DynamicInclude of EFCore</Description>
     <Copyright>© Liyanjie.me</Copyright>
     <Authors>liyanjie8712@outlook.com</Authors>
     <Company>Liyanjie.me</Company>
@@ -14,8 +14,12 @@
     <Version>1.1.0</Version>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net45|AnyCPU'">
-    <DocumentationFile>bin\Release\net45\Liyanjie.Jsonql.AspNet.xml</DocumentationFile>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net451|AnyCPU'">
+    <DocumentationFile>bin\Release\net451\Liyanjie.Jsonql.DynamicInclude.EFCore.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard1.3|AnyCPU'">
+    <DocumentationFile>bin\Release\netstandard1.3\Liyanjie.Jsonql.DynamicInclude.EFCore.xml</DocumentationFile>
   </PropertyGroup>
 
   <Target Name="CopyPackage" AfterTargets="Pack">
@@ -23,11 +27,11 @@
   </Target>
 
   <ItemGroup>
-    <ProjectReference Include="..\Liyanjie.Jsonql.Core\Liyanjie.Jsonql.Core.csproj" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="1.1.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Liyanjie.TemplateMatching" Version="1.0.0" />
+    <ProjectReference Include="..\Liyanjie.Jsonql.Core\Liyanjie.Jsonql.Core.csproj" />
   </ItemGroup>
 
 </Project>

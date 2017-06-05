@@ -1,11 +1,11 @@
-﻿using Liyanjie.Jsonql.Core.Internals;
-using Liyanjie.Jsonql.Core.Parsers;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Liyanjie.Jsonql.Core.Internals;
+using Liyanjie.Jsonql.Core.Parsers;
+using Newtonsoft.Json;
 
 namespace Liyanjie.Jsonql.Core
 {
@@ -15,8 +15,9 @@ namespace Liyanjie.Jsonql.Core
     public sealed class QueryHandler : IDisposable
     {
         readonly ResourceTable resourceTable;
-        readonly IDynamicEvaluator dynamicEvaluator;
-        readonly IDynamicLinq dynamicLinq;
+        readonly IJsonqlIncluder jsonqlIncluder;
+        readonly IJsonqlLinqer jsonqlLinqer;
+        readonly IJsonqlEvaluator jsonqlEvaluator;
 
         IDictionary<string, Resource> resources;
         IDictionary<string, string> expressions;
@@ -27,18 +28,18 @@ namespace Liyanjie.Jsonql.Core
         /// 
         /// </summary>
         /// <param name="resourceTable"></param>
-        /// <param name="dynamicEvaluator"></param>
-        /// <param name="dynamicLinq"></param>
+        /// <param name="jsonqlIncluder"></param>
+        /// <param name="jsonqlLinqer"></param>
+        /// <param name="jsonqlEvaluator"></param>
         public QueryHandler(ResourceTable resourceTable,
-            IDynamicEvaluator dynamicEvaluator,
-            IDynamicLinq dynamicLinq)
+            IJsonqlIncluder jsonqlIncluder,
+            IJsonqlLinqer jsonqlLinqer,
+            IJsonqlEvaluator jsonqlEvaluator)
         {
-            if (resourceTable == null)
-                throw new ArgumentNullException(nameof(resourceTable));
-
-            this.resourceTable = resourceTable;
-            this.dynamicEvaluator = dynamicEvaluator;
-            this.dynamicLinq = dynamicLinq;
+            this.resourceTable = resourceTable ?? throw new ArgumentNullException(nameof(resourceTable));
+            this.jsonqlIncluder = jsonqlIncluder;
+            this.jsonqlLinqer = jsonqlLinqer;
+            this.jsonqlEvaluator = jsonqlEvaluator;
         }
 
         /// <summary>
@@ -55,13 +56,13 @@ namespace Liyanjie.Jsonql.Core
         /// 
         /// </summary>
         /// <param name="query"></param>
-        /// <param name="authorization"></param>
+        /// <param name="jsonqlAuthorization"></param>
         /// <returns></returns>
-        public async Task<string> Handle(string query, IAuthorization authorization)
+        public async Task<string> Handle(string query, IJsonqlAuthorization jsonqlAuthorization)
         {
             using (var queryParser = new QueryParser(query))
             {
-                resources = queryParser.Resources.ToDictionary(_ => _.Key, _ => resourceTable.GetResource(_.Value, authorization, dynamicLinq));
+                resources = queryParser.Resources.ToDictionary(_ => _.Key, _ => resourceTable.GetResource(_.Value, jsonqlAuthorization, jsonqlIncluder, jsonqlLinqer));
                 expressions = queryParser.Expressions.Copy();
                 templates = queryParser.Templates.Copy();
                 entry = queryParser.Entry;
@@ -106,52 +107,54 @@ namespace Liyanjie.Jsonql.Core
             {
                 var segments = template.Split(new[] { "=>" }, 2, StringSplitOptions.RemoveEmptyEntries);
 
-                var valueTemplate = segments[0];
-                var enumerateTemplate = segments[1];
+                var template_resource = segments[0];
+                var template_enumeration = segments[1];
 
-                var value = await getValue2(valueTemplate, variables, @object);
+                var includes = new IncludeParser(template_enumeration, templates).Parse();
+
+                var value = await getValue2(template_resource, includes, variables, @object);
                 var queryable = value is Resource
                     ? (value as Resource)?.Queryable
                     : (value as IEnumerable)?.AsQueryable();
                 if (queryable == null)
                     return null;
 
-                var isArrayReturn = enumerateTemplate.EndsWith("[]");
+                var isArrayReturn = template_enumeration.EndsWith("[]");
                 if (isArrayReturn)
-                    enumerateTemplate = enumerateTemplate.Substring(0, enumerateTemplate.Length - 2);
+                    template_enumeration = template_enumeration.Substring(0, template_enumeration.Length - 2);
 
-                if (dynamicLinq != null)
+                if (jsonqlLinqer != null)
                 {
-                    var selector = new SelectParser(templates).Parse(enumerateTemplate);
+                    var selector = new SelectParser(templates).Parse(template_enumeration);
                     if (!string.IsNullOrWhiteSpace(selector))
-                        queryable = dynamicLinq.Select(queryable, selector, new object[0]);
+                        queryable = jsonqlLinqer.Select(queryable, selector, new object[0]);
                 }
 
                 if (isArrayReturn)
                 {
                     var list = new List<object>();
-                    var source = dynamicLinq == null ? QueryableHelper.ToList(queryable) : dynamicLinq.ToList(queryable);
+                    var source = jsonqlLinqer == null ? QueryableHelper.ToList(queryable) : jsonqlLinqer.ToList(queryable);
                     foreach (var item in source)
                     {
-                        list.Add(await getValue1(enumerateTemplate, variables, false, item));
+                        list.Add(await getValue1(template_enumeration, variables, false, item));
                     }
                     return list;
                 }
                 else
                 {
-                    var first = dynamicLinq == null
+                    var first = jsonqlLinqer == null
                         ? QueryableHelper.FirstOrDefault(queryable)
-                        : dynamicLinq.FirstOrDefault(queryable);
+                        : jsonqlLinqer.FirstOrDefault(queryable);
                     if (first == null)
                         return null;
 
-                    return await getValue1(enumerateTemplate, variables, false, first);
+                    return await getValue1(template_enumeration, variables, false, first);
                 }
             }
             //取值
             else
             {
-                var value = await getValue2(template, variables, @object);
+                var value = await getValue2(template, null, variables, @object);
                 if (value is Resource)
                 {
                     if (isVariable)
@@ -159,16 +162,16 @@ namespace Liyanjie.Jsonql.Core
                     else
                     {
                         var queryable = (value as Resource).Queryable;
-                        return dynamicLinq == null
+                        return jsonqlLinqer == null
                             ? QueryableHelper.ToList(queryable)
-                            : dynamicLinq.ToList(queryable);
+                            : jsonqlLinqer.ToList(queryable);
                     }
                 }
                 return value;
             }
         }
 
-        async Task<object> getValue2(string template, IDictionary<string, object> variables, object @object = null)
+        async Task<object> getValue2(string template, string[] includes, IDictionary<string, object> variables, object @object = null)
         {
             if ("$".Equals(template))//对象自身
                 return @object;
@@ -179,14 +182,14 @@ namespace Liyanjie.Jsonql.Core
             else if (template.StartsWith("#"))//模板
                 return await createObject(templates[template], variables, @object);
             else if (template.StartsWith("@"))//资源
-                return createResource(template, variables);
+                return createResource(template, includes, variables);
             else if (template.StartsWith("$"))//变量
-                return createResource(template, variables);
+                return createResource(template, includes, variables);
             else
                 return JsonConvert.DeserializeObject(template);
         }
 
-        object createResource(string template, IDictionary<string, object> variables)
+        object createResource(string template, string[] includes, IDictionary<string, object> variables)
         {
             object @return = null;
 
@@ -198,7 +201,7 @@ namespace Liyanjie.Jsonql.Core
 
             var segment0 = segments[0];
             if (segment0.StartsWith("@"))
-                @return = resources[segment0];
+                @return = resources[segment0].Include(includes);
             else if (segment0.StartsWith("$"))
                 @return = variables[segment0];
 
@@ -280,7 +283,7 @@ namespace Liyanjie.Jsonql.Core
 
         object evaluateExpression(string expression, IDictionary<string, object> variables)
         {
-            return dynamicEvaluator.Evaluate(expression.TrimStart('{').TrimEnd('}'), variables);
+            return jsonqlEvaluator.Evaluate(expression.TrimStart('{').TrimEnd('}'), variables);
         }
     }
 }
