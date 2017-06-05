@@ -3,6 +3,9 @@ Responsive Json Query Language，客户端发送伪Json查询，服务端返回�
 基于 DynamicLinq 支持常用的Linq查询。  
 基于 DynamicEvaluation 支持表达式计算。
 
+### New in version 1.1.0
+> 如果使用 **EF[Core]**，查询导航属性时，会自动调用 **Include()** 进行关联查询。
+
 ### 语法
 ##### 变量的定义：\$变量名
 变量必须先定义后使用，所有在定义前的引用都是错误的。  
@@ -58,17 +61,23 @@ Responsive Json Query Language，客户端发送伪Json查询，服务端返回�
     {
         uuid: $.id,                             //ID
         serial,                                 //订单号
-        status                                  //订单状态
+        status,                                 //订单状态
+        statusChanges: $.statusChanges.orderby(changeTime) =>
+        {
+            changeTime,
+            status,
+            remark
+        }[]
     }[]
 }
 ```
 
 - Liyanjie.Jsonql.Core [![](https://img.shields.io/myget/liyanjie/v/Liyanjie.Jsonql.Core.svg)][liyanjie]
 - Liyanjie.Jsonql.Explorer [![](https://img.shields.io/myget/liyanjie/v/Liyanjie.Jsonql.Explorer.svg)][liyanjie]
-  > ###### 1.0.1 
-  > - Fill bugs.
 - Liyanjie.Jsonql.Tester [![](https://img.shields.io/myget/liyanjie/v/Liyanjie.Jsonql.Tester.svg)][liyanjie]                            
 - Liyanjie.Jsonql.DynamicEvaluation [![](https://img.shields.io/myget/liyanjie/v/Liyanjie.Jsonql.DynamicEvaluation.svg)][liyanjie]                            
+- Liyanjie.Jsonql.DynamicInclude.EF [![](https://img.shields.io/myget/liyanjie/v/Liyanjie.Jsonql.DynamicInclude.EF.svg)][liyanjie]                            
+- Liyanjie.Jsonql.DynamicInclude.EFCore [![](https://img.shields.io/myget/liyanjie/v/Liyanjie.Jsonql.DynamicInclude.EFCore.svg)][liyanjie]                            
 - Liyanjie.Jsonql.DynamicLinq [![](https://img.shields.io/myget/liyanjie/v/Liyanjie.Jsonql.DynamicLinq.svg)][liyanjie]                            
 - Liyanjie.Jsonql.AspNetCore [![](https://img.shields.io/myget/liyanjie/v/Liyanjie.Jsonql.AspNetCore.svg)][liyanjie]                            
 - Liyanjie.Jsonql.Tester.AspNetCore [![](https://img.shields.io/myget/liyanjie/v/Liyanjie.Jsonql.Tester.AspNetCore.svg)][liyanjie]                            
