@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
@@ -41,14 +40,14 @@ namespace Liyanjie.Jsonql.Sample.AspNetCore
                 {
                     var dbContext = services.BuildServiceProvider().GetService<DbContext>();
                     options.Resources
-                        .AddResource("orders", dbContext.Orders)
-                        .AddResource("orderstatuschanges", dbContext.OrderStatusChanges)
-                        .AddResource("useraccounts", dbContext.UserAccounts)
-                        .AddResource("useraccountrecords", dbContext.UserAccountRecords)
-                        .AddResource("users", dbContext.Users)
-                        .AddResource("userprofiles", dbContext.UserProfiles);
+                        .AddResource("Orders", dbContext.Orders)
+                        .AddResource("OrderStatusChanges", dbContext.OrderStatusChanges)
+                        .AddResource("UserAccounts", dbContext.UserAccounts)
+                        .AddResource("UserAccountRecords", dbContext.UserAccountRecords)
+                        .AddResource("Users", dbContext.Users)
+                        .AddResource("UserProfiles", dbContext.UserProfiles);
                     options.Authorize = context => true;
-                    options.JsonqlIncluder = new Liyanjie.Jsonql.DynamicInclude.JsonqlIncluder();
+                    options.JsonqlIncluder = new Liyanjie.Jsonql.DynamicInclude.DynamicJsonqlIncluder();
                     options.JsonqlEvaluator = new Liyanjie.Jsonql.DynamicEvaluation.DynamicJsonqlEvaluator();
                     options.JsonqlLinqer = new Liyanjie.Jsonql.DynamicLinq.DynamicJsonqlLinqer();
                 });
@@ -70,143 +69,6 @@ namespace Liyanjie.Jsonql.Sample.AspNetCore
                 });
 
             return;
-            //以下初始化数据
-            app.UseWhen(httpContext => httpContext.Request.Path.Value == "initial", builder =>
-            {
-                var db = builder.ApplicationServices.GetService<DbContext>();
-
-                #region 1
-                db.Users.Add(new User
-                {
-                    Username = "1",
-                    Profile = new UserProfile
-                    {
-                        Nick = "Nick1",
-                        Avatar = "Avatar1",
-                    },
-                    Account = new UserAccount
-                    {
-                        Coins = 1,
-                        Points = 1,
-                    },
-                    Orders = new List<Order>
-                     {
-                        new Order
-                        {
-                            Serial = "101",
-                            Status = 1,
-                            StatusChanges = new List<OrderStatusChange>
-                            {
-                                new OrderStatusChange { Status = 1 },
-                            }
-                        },
-                        new Order
-                        {
-                            Serial = "102",
-                            Status = 2,
-                            StatusChanges = new List<OrderStatusChange>
-                            {
-                                new OrderStatusChange { Status = 1 },
-                                new OrderStatusChange { Status = 2 },
-                            }
-                        },
-                     },
-                    AccountRecords = new List<UserAccountRecord>
-                     {
-                        new UserAccountRecord { Coins = 1, Points = 1, Remark = "101" },
-                        new UserAccountRecord { Coins = 1, Points = 1, Remark = "102" },
-                     },
-                });
-                #endregion
-                #region 2
-                db.Users.Add(new User
-                {
-                    Username = "2",
-                    Profile = new UserProfile
-                    {
-                        Nick = "Nick2",
-                        Avatar = "Avatar2",
-                    },
-                    Account = new UserAccount
-                    {
-                        Coins = 1,
-                        Points = 1,
-                    },
-                    Orders = new List<Order>
-                     {
-                        new Order
-                        {
-                            Serial = "201",
-                            Status = 1,
-                            StatusChanges = new List<OrderStatusChange>
-                            {
-                                new OrderStatusChange { Status = 1 },
-                            }
-                        },
-                        new Order
-                        {
-                            Serial = "202",
-                            Status = 2,
-                            StatusChanges = new List<OrderStatusChange>
-                            {
-                                new OrderStatusChange { Status = 1 },
-                                new OrderStatusChange { Status = 2 },
-                            }
-                        },
-                     },
-                    AccountRecords = new List<UserAccountRecord>
-                     {
-                        new UserAccountRecord { Coins = 1, Points = 1, Remark = "201" },
-                        new UserAccountRecord { Coins = 1, Points = 1, Remark = "202" },
-                     },
-                });
-                #endregion
-                #region 3
-                db.Users.Add(new User
-                {
-                    Username = "3",
-                    Profile = new UserProfile
-                    {
-                        Nick = "Nick3",
-                        Avatar = "Avatar3",
-                    },
-                    Account = new UserAccount
-                    {
-                        Coins = 1,
-                        Points = 1,
-                    },
-                    Orders = new List<Order>
-                     {
-                        new Order
-                        {
-                            Serial = "301",
-                            Status = 1,
-                            StatusChanges = new List<OrderStatusChange>
-                            {
-                                new OrderStatusChange { Status = 1 },
-                            }
-                        },
-                        new Order
-                        {
-                            Serial = "302",
-                            Status = 2,
-                            StatusChanges = new List<OrderStatusChange>
-                            {
-                                new OrderStatusChange { Status = 1 },
-                                new OrderStatusChange { Status = 2 },
-                            }
-                        },
-                     },
-                    AccountRecords = new List<UserAccountRecord>
-                     {
-                        new UserAccountRecord { Coins = 1, Points = 1, Remark = "301" },
-                        new UserAccountRecord { Coins = 1, Points = 1, Remark = "302" },
-                     },
-                });
-                #endregion
-
-                db.SaveChanges();
-            });
         }
     }
 }
