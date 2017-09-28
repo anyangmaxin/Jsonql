@@ -1,7 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+  <PropertyGroup Label="Globals">
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+  </PropertyGroup>
+
   <PropertyGroup>
-    <TargetFrameworks>net45;netstandard1.3;</TargetFrameworks>
+    <TargetFrameworks>net45;netstandard1.5;</TargetFrameworks>
     <Description>Jsonql DynamicEvaluation</Description>
     <Copyright>© Liyanjie.me</Copyright>
     <Authors>liyanjie8712@outlook.com</Authors>
@@ -11,15 +18,15 @@
     <RepositoryType>Git</RepositoryType>
     <SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
-    <Version>1.1.0</Version>
+    <Version>1.1.1-alpha</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net45|AnyCPU'">
     <DocumentationFile>bin\Release\net45\Liyanjie.Jsonql.DynamicEvaluation.xml</DocumentationFile>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard1.3|AnyCPU'">
-    <DocumentationFile>bin\Release\netstandard1.3\Liyanjie.Jsonql.DynamicEvaluation.xml</DocumentationFile>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard1.5|AnyCPU'">
+    <DocumentationFile>bin\Release\netstandard1.5\Liyanjie.Jsonql.DynamicEvaluation.xml</DocumentationFile>
   </PropertyGroup>
 
   <Target Name="CopyPackage" AfterTargets="Pack">
@@ -31,7 +38,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Liyanjie.Evaluation" Version="1.0.0" />
+    <PackageReference Include="Liyanjie.Evaluation" Version="1.1.0-alpha" />
   </ItemGroup>
 
 </Project>

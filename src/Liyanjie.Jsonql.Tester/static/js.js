@@ -34,7 +34,7 @@ function init(schema, callback) {
         $('body>main>div.l>dl#methods').append(dd);
     });
     callback && callback();
-};
+}
 function send(body, header) {
     var timer, time;
     $('body>main>div.r>div.m button').attr('disabled', 'disabled');
@@ -55,7 +55,10 @@ function send(body, header) {
             }, 75);
         },
         error: function (xhr, status, error) {
-            $('body>main>div.r>div.b textarea').val(error || status);
+            if (xhr.responseJSON)
+                $('body>main>div.r>div.b textarea').val(JSON.stringify(xhr.responseJSON, null, 4));
+            else
+                $('body>main>div.r>div.b textarea').val(error || status);
         },
         success: function (response, status, xhr) {
             $('body>main>div.r>div.b textarea').val(JSON.stringify(response, null, 4));
@@ -66,7 +69,7 @@ function send(body, header) {
             clearInterval(timer);
         }
     });
-};
+}
 $(function () {
     $.getJSON('schema.json?v=1.1.6', function (schema) {
         init(schema || {}, function () {

@@ -10,9 +10,9 @@ namespace Liyanjie.Jsonql.DynamicLinq
     public class DynamicJsonqlLinqer : IJsonqlLinqer
     {
         /// <inheritdoc />
-        public bool All(IQueryable queryable, string predicate, object[] parameters)
+        public bool All(IQueryable queryable, string predicate, IDictionary<string, dynamic> variables = null)
         {
-            return queryable.All(predicate, parameters);
+            return queryable.All(predicate, variables);
         }
 
         /// <inheritdoc />
@@ -22,15 +22,21 @@ namespace Liyanjie.Jsonql.DynamicLinq
         }
 
         /// <inheritdoc />
-        public bool Any(IQueryable queryable, string predicate, object[] parameters)
+        public bool Any(IQueryable queryable, string predicate, IDictionary<string, dynamic> variables = null)
         {
-            return queryable.Any(predicate, parameters);
+            return queryable.Any(predicate, variables);
         }
 
         /// <inheritdoc />
-        public object Average<TResult>(IQueryable queryable, string valueSelector, object[] parameters) where TResult : struct
+        public object Average(IQueryable queryable)
         {
-            return queryable.Average(typeof(TResult), valueSelector, parameters);
+            return queryable.Average();
+        }
+
+        /// <inheritdoc />
+        public object Average(IQueryable queryable, string valueSelector, IDictionary<string, dynamic> variables = null)
+        {
+            return queryable.Average(valueSelector, variables);
         }
 
         /// <inheritdoc />
@@ -40,9 +46,9 @@ namespace Liyanjie.Jsonql.DynamicLinq
         }
 
         /// <inheritdoc />
-        public int Count(IQueryable queryable, string predicate, object[] parameters)
+        public int Count(IQueryable queryable, string predicate, IDictionary<string, dynamic> variables = null)
         {
-            return queryable.Count(predicate, parameters);
+            return queryable.Count(predicate, variables);
         }
 
         /// <inheritdoc />
@@ -52,45 +58,141 @@ namespace Liyanjie.Jsonql.DynamicLinq
         }
 
         /// <inheritdoc />
+        public object ElementAt(IQueryable queryable, int index)
+        {
+            return queryable.ElementAt(index);
+        }
+
+        /// <inheritdoc />
+        public object ElementAtOrDefault(IQueryable queryable, int index)
+        {
+            return queryable.ElementAtOrDefault(index);
+        }
+
+        /// <inheritdoc />
+        public object First(IQueryable queryable)
+        {
+            return queryable.First();
+        }
+
+        /// <inheritdoc />
+        public object First(IQueryable queryable, string predicate, IDictionary<string, dynamic> variables = null)
+        {
+            return queryable.First(predicate, variables);
+        }
+
+        /// <inheritdoc />
         public object FirstOrDefault(IQueryable queryable)
         {
             return queryable.FirstOrDefault();
         }
 
         /// <inheritdoc />
-        public IQueryable GroupBy(IQueryable queryable, string keySelector, object[] parameters)
+        public object FirstOrDefault(IQueryable queryable, string predicate, IDictionary<string, dynamic> variables = null)
         {
-            return queryable.GroupBy(keySelector, parameters);
+            return queryable.FirstOrDefault(predicate, variables);
         }
 
         /// <inheritdoc />
-        public object Max<TResult>(IQueryable queryable, string valueSelector, object[] parameters) where TResult : struct
+        public IQueryable GroupBy(IQueryable queryable, string keySelector, IDictionary<string, dynamic> variables = null)
         {
-            return queryable.Max(typeof(TResult), valueSelector, parameters);
+            return queryable.GroupBy(keySelector, variables);
         }
 
         /// <inheritdoc />
-        public object Min<TResult>(IQueryable queryable, string valueSelector, object[] parameters) where TResult : struct
+        public object Last(IQueryable queryable)
         {
-            return queryable.Min(typeof(TResult), valueSelector, parameters);
+            return queryable.Last();
         }
 
         /// <inheritdoc />
-        public IOrderedQueryable OrderBy(IQueryable queryable, string keySelector, object[] parameters)
+        public object Last(IQueryable queryable, string predicate, IDictionary<string, dynamic> variables = null)
         {
-            return queryable.OrderBy(keySelector, parameters);
+            return queryable.Last(predicate, variables);
         }
 
         /// <inheritdoc />
-        public IOrderedQueryable OrderByDescending(IQueryable queryable, string keySelector, object[] parameters)
+        public object LastOrDefault(IQueryable queryable)
         {
-            return queryable.OrderByDescending(keySelector, parameters);
+            return queryable.LastOrDefault();
         }
 
         /// <inheritdoc />
-        public IQueryable Select(IQueryable queryable, string selector, object[] parameters)
+        public object LastOrDefault(IQueryable queryable, string predicate, IDictionary<string, dynamic> variables = null)
         {
-            return queryable.Select(selector, parameters);
+            return queryable.LastOrDefault(predicate, variables);
+        }
+
+        /// <inheritdoc />
+        public object Max(IQueryable queryable)
+        {
+            return queryable.Max();
+        }
+
+        /// <inheritdoc />
+        public object Max(IQueryable queryable, string selector, IDictionary<string, dynamic> variables = null)
+        {
+            return queryable.Max(selector, variables);
+        }
+
+        /// <inheritdoc />
+        public object Min(IQueryable queryable)
+        {
+            return queryable.Min();
+        }
+
+        /// <inheritdoc />
+        public object Min(IQueryable queryable, string selector, IDictionary<string, dynamic> variables = null)
+        {
+            return queryable.Min(selector, variables);
+        }
+
+        /// <inheritdoc />
+        public IOrderedQueryable OrderBy(IQueryable queryable, string keySelector, IDictionary<string, dynamic> variables = null)
+        {
+            return queryable.OrderBy(keySelector, variables);
+        }
+
+        /// <inheritdoc />
+        public IOrderedQueryable OrderByDescending(IQueryable queryable, string keySelector, IDictionary<string, dynamic> variables = null)
+        {
+            return queryable.OrderByDescending(keySelector, variables);
+        }
+
+        /// <inheritdoc />
+        public IQueryable Reverse(IQueryable queryable)
+        {
+            return queryable.Reverse();
+        }
+
+        /// <inheritdoc />
+        public IQueryable Select(IQueryable queryable, string selector, IDictionary<string, dynamic> variables = null)
+        {
+            return queryable.Select(selector, variables);
+        }
+
+        /// <inheritdoc />
+        public object Single(IQueryable queryable)
+        {
+            return queryable.Single();
+        }
+
+        /// <inheritdoc />
+        public object Single(IQueryable queryable, string predicate, IDictionary<string, dynamic> variables = null)
+        {
+            return queryable.Single(predicate, variables);
+        }
+
+        /// <inheritdoc />
+        public object SingleOrDefault(IQueryable queryable)
+        {
+            return queryable.SingleOrDefault();
+        }
+
+        /// <inheritdoc />
+        public object SingleOrDefault(IQueryable queryable, string predicate, IDictionary<string, dynamic> variables = null)
+        {
+            return queryable.SingleOrDefault(predicate, variables);
         }
 
         /// <inheritdoc />
@@ -100,9 +202,15 @@ namespace Liyanjie.Jsonql.DynamicLinq
         }
 
         /// <inheritdoc />
-        public object Sum<TResult>(IQueryable queryable, string valueSelector, object[] parameters) where TResult : struct
+        public object Sum(IQueryable queryable)
         {
-            return queryable.Sum(typeof(TResult), valueSelector, parameters);
+            return queryable.Sum();
+        }
+
+        /// <inheritdoc />
+        public object Sum(IQueryable queryable, string selector, IDictionary<string, dynamic> variables = null)
+        {
+            return queryable.Sum(selector, variables);
         }
 
         /// <inheritdoc />
@@ -112,15 +220,15 @@ namespace Liyanjie.Jsonql.DynamicLinq
         }
 
         /// <inheritdoc />
-        public IOrderedQueryable ThenBy(IOrderedQueryable queryable, string keySelector, object[] parameters)
+        public IOrderedQueryable ThenBy(IOrderedQueryable queryable, string keySelector, IDictionary<string, dynamic> variables = null)
         {
-            return queryable.ThenBy(keySelector, parameters);
+            return queryable.ThenBy(keySelector, variables);
         }
 
         /// <inheritdoc />
-        public IOrderedQueryable ThenByDescending(IOrderedQueryable queryable, string keySelector, object[] parameters)
+        public IOrderedQueryable ThenByDescending(IOrderedQueryable queryable, string keySelector, IDictionary<string, dynamic> variables = null)
         {
-            return queryable.ThenByDescending(keySelector, parameters);
+            return queryable.ThenByDescending(keySelector, variables);
         }
 
         /// <inheritdoc />
@@ -130,9 +238,9 @@ namespace Liyanjie.Jsonql.DynamicLinq
         }
 
         /// <inheritdoc />
-        public IQueryable Where(IQueryable queryable, string predicate, object[] parameters)
+        public IQueryable Where(IQueryable queryable, string predicate, IDictionary<string, dynamic> variables = null)
         {
-            return queryable.Where(predicate, parameters);
+            return queryable.Where(predicate, variables);
         }
     }
 }

@@ -1,5 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+  <PropertyGroup Label="Globals">
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+  </PropertyGroup>
+
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard1.5;</TargetFrameworks>
     <Description>Jsonql DynamicLinq</Description>
@@ -11,7 +18,7 @@
     <RepositoryType>Git</RepositoryType>
     <SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
-    <Version>1.1.0</Version>
+    <Version>1.1.1-alpha</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net45|AnyCPU'">
@@ -27,11 +34,11 @@
   </Target>
 
   <ItemGroup>
-    <ProjectReference Include="..\Liyanjie.Jsonql.Core\Liyanjie.Jsonql.Core.csproj" />
+    <PackageReference Include="Liyanjie.Linq" Version="1.0.0-alpha" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Liyanjie.Linq.Dynamic" Version="1.0.0" />
+    <ProjectReference Include="..\Liyanjie.Jsonql.Core\Liyanjie.Jsonql.Core.csproj" />
   </ItemGroup>
 
 </Project>

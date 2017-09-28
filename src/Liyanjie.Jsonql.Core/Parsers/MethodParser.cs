@@ -18,7 +18,7 @@ namespace Liyanjie.Jsonql.Core.Parsers
             this.template = template;
         }
 
-        public KeyValuePair<string, KeyValuePair<string, string[]>> Parse()
+        public (string Name, string Parameter, IList<string> Variables) Parse()
         {
             if (!Regex.IsMatch(template, @"^[a-zA-Z_]\w*\("))
                 throw new Exception("Parse method call error!");
@@ -36,7 +36,7 @@ namespace Liyanjie.Jsonql.Core.Parsers
                     parameters.Add(parameter);
             }
 
-            return new KeyValuePair<string, KeyValuePair<string, string[]>>(name, new KeyValuePair<string, string[]>(param.TrimStart('(').TrimEnd(')'), parameters.ToArray()));
+            return (name, param.TrimStart('(').TrimEnd(')'), parameters);
         }
     }
 }

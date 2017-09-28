@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.Routing.Template;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 
 namespace Liyanjie.Jsonql.AspNetCore
 {
@@ -46,21 +47,24 @@ namespace Liyanjie.Jsonql.AspNetCore
         /// <returns></returns>
         public async Task Invoke(HttpContext httpContext)
         {
-            if (matchRequesting(httpContext.Request, out string query))
+            if (MatchRequesting(httpContext.Request, out string query))
             {
                 if (!(jsonqlOptions.Authorize?.Invoke(httpContext) ?? true))
-                {
-                    httpContext.Response.Clear();
-                    httpContext.Response.StatusCode = 403;
                     return;
-                }
 
                 if (!string.IsNullOrEmpty(query))
                 {
                     using (var queryHandler = new QueryHandler(jsonqlOptions.Resources, jsonqlOptions.JsonqlIncluder, jsonqlOptions.JsonqlLinqer, jsonqlOptions.JsonqlEvaluator))
                     {
-                        var content = await queryHandler.Handle(query, new JsonqlAuthorization(httpContext));
-                        await respondDocument(httpContext.Response, content);
+                        try
+                        {
+                            var content = await queryHandler.Handle(query, new JsonqlAuthorization(httpContext));
+                            await RespondDocument(httpContext.Response, content);
+                        }
+                        catch (Exception exception)
+                        {
+                            await RespondDocument(httpContext.Response, JsonConvert.SerializeObject(new { Message = exception.Message }), 500);
+                        }
                     }
                 }
                 return;
@@ -69,7 +73,7 @@ namespace Liyanjie.Jsonql.AspNetCore
             await next(httpContext);
         }
 
-        private bool matchRequesting(HttpRequest request, out string query)
+        bool MatchRequesting(HttpRequest request, out string query)
         {
             query = null;
 
@@ -98,9 +102,9 @@ namespace Liyanjie.Jsonql.AspNetCore
             return false;
         }
 
-        private async Task respondDocument(HttpResponse response, string content)
+        async Task RespondDocument(HttpResponse response, string content, int statusCode = 200)
         {
-            response.StatusCode = 200;
+            response.StatusCode = statusCode;
             response.ContentType = "application/json";
 
             using (var writer = new StreamWriter(response.Body))

@@ -4,6 +4,7 @@ using System.Web;
 using System.Web.Routing;
 using Liyanjie.Jsonql.Core;
 using Liyanjie.TemplateMatching;
+using Newtonsoft.Json;
 
 namespace Liyanjie.Jsonql.AspNet
 {
@@ -23,7 +24,7 @@ namespace Liyanjie.Jsonql.AspNet
         public bool Invoke(HttpContext httpContext)
         {
             string query;
-            if (matchRequesting(httpContext.Request, out query))
+            if (MatchRequesting(httpContext.Request, out query))
             {
                 if (!(jsonqlOptions.Authorize?.Invoke(httpContext) ?? true))
                 {
@@ -36,10 +37,17 @@ namespace Liyanjie.Jsonql.AspNet
                 {
                     using (var queryHandler = new QueryHandler(jsonqlOptions.Resources, jsonqlOptions.JsonqlIncluder, jsonqlOptions.JsonqlLinqer, jsonqlOptions.JsonqlEvaluator))
                     {
-                        var t = queryHandler.Handle(query, new JsonqlAuthorization(httpContext));
-                        t.Wait();
-                        var content = t.Result;
-                        respondDocument(httpContext.Response, content);
+                        try
+                        {
+                            var t = queryHandler.Handle(query, new JsonqlAuthorization(httpContext));
+                            t.Wait();
+                            var content = t.Result;
+                            RespondDocument(httpContext.Response, content);
+                        }
+                        catch (Exception exception)
+                        {
+                            RespondDocument(httpContext.Response, JsonConvert.SerializeObject(exception), 500);
+                        }
                     }
                 }
                 return true;
@@ -48,7 +56,7 @@ namespace Liyanjie.Jsonql.AspNet
             return false;
         }
 
-        private bool matchRequesting(HttpRequest request, out string query)
+        bool MatchRequesting(HttpRequest request, out string query)
         {
             query = null;
 
@@ -77,9 +85,9 @@ namespace Liyanjie.Jsonql.AspNet
             return false;
         }
 
-        private void respondDocument(HttpResponse response, string content)
+        void RespondDocument(HttpResponse response, string content, int statusCode = 200)
         {
-            response.StatusCode = 200;
+            response.StatusCode = statusCode;
             response.ContentType = "application/json";
 
             using (var writer = new StreamWriter(response.OutputStream))

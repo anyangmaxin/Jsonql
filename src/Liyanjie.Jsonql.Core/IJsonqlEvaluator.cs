@@ -13,6 +13,6 @@ namespace Liyanjie.Jsonql.Core
         /// <param name="expression"></param>
         /// <param name="variables"></param>
         /// <returns></returns>
-        object Evaluate(string expression, IDictionary<string, object> variables);
+        object Evaluate(string expression, ref IDictionary<string, object> variables);
     }
 }

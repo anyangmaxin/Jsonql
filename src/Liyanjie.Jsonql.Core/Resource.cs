@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Liyanjie.Jsonql.Core
 {
@@ -38,11 +39,11 @@ namespace Liyanjie.Jsonql.Core
         /// <summary>
         /// 
         /// </summary>
-        protected object[] parameters { get; private set; }
+        protected IDictionary<string, dynamic> Parameters { get; private set; }
 
-        internal Resource SetParameters(params object[] parameters)
+        internal Resource SetParameters(IDictionary<string, dynamic> parameters)
         {
-            this.parameters = parameters;
+            this.Parameters = parameters;
             return this;
         }
 
@@ -60,7 +61,7 @@ namespace Liyanjie.Jsonql.Core
         /// <returns></returns>
         public bool All(string predicate)
         {
-            return JsonqlLinqer.All(Queryable, predicate, parameters);
+            return JsonqlLinqer.All(Queryable, predicate, Parameters);
         }
 
         /// <summary>
@@ -73,7 +74,16 @@ namespace Liyanjie.Jsonql.Core
             if (predicate == null)
                 return JsonqlLinqer.Any(Queryable);
             else
-                return JsonqlLinqer.Any(Queryable, predicate, parameters);
+                return JsonqlLinqer.Any(Queryable, predicate, Parameters);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public object Average()
+        {
+            return JsonqlLinqer.Average(Queryable);
         }
 
         /// <summary>
@@ -83,7 +93,7 @@ namespace Liyanjie.Jsonql.Core
         /// <returns></returns>
         public object Average(string selector)
         {
-            return JsonqlLinqer.Average<double>(Queryable, selector, parameters);
+            return JsonqlLinqer.Average(Queryable, selector, Parameters);
         }
 
         /// <summary>
@@ -96,7 +106,7 @@ namespace Liyanjie.Jsonql.Core
             if (predicate == null)
                 return JsonqlLinqer.Count(Queryable);
             else
-                return JsonqlLinqer.Count(Queryable, predicate, parameters);
+                return JsonqlLinqer.Count(Queryable, predicate, Parameters);
         }
 
         /// <summary>
@@ -115,7 +125,16 @@ namespace Liyanjie.Jsonql.Core
         /// <returns></returns>
         public Resource GroupBy(string selector)
         {
-            return new Resource(JsonqlLinqer.GroupBy(Queryable, selector, parameters), JsonqlIncluder, JsonqlLinqer);
+            return new Resource(JsonqlLinqer.GroupBy(Queryable, selector, Parameters), JsonqlIncluder, JsonqlLinqer);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public object Max()
+        {
+            return JsonqlLinqer.Max(Queryable);
         }
 
         /// <summary>
@@ -125,7 +144,16 @@ namespace Liyanjie.Jsonql.Core
         /// <returns></returns>
         public object Max(string selector)
         {
-            return JsonqlLinqer.Max<double>(Queryable, selector, parameters);
+            return JsonqlLinqer.Max(Queryable, selector, Parameters);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public object Min()
+        {
+            return JsonqlLinqer.Min(Queryable);
         }
 
         /// <summary>
@@ -135,7 +163,7 @@ namespace Liyanjie.Jsonql.Core
         /// <returns></returns>
         public object Min(string selector)
         {
-            return JsonqlLinqer.Min<double>(Queryable, selector, parameters);
+            return JsonqlLinqer.Min(Queryable, selector, Parameters);
         }
 
         /// <summary>
@@ -145,7 +173,7 @@ namespace Liyanjie.Jsonql.Core
         /// <returns></returns>
         public Resource_Ordered OrderBy(string selector)
         {
-            return new Resource_Ordered(JsonqlLinqer.OrderBy(Queryable, selector, parameters), JsonqlIncluder, JsonqlLinqer);
+            return new Resource_Ordered(JsonqlLinqer.OrderBy(Queryable, selector, Parameters), JsonqlIncluder, JsonqlLinqer);
         }
 
         /// <summary>
@@ -155,7 +183,7 @@ namespace Liyanjie.Jsonql.Core
         /// <returns></returns>
         public Resource_Ordered OrderByDescending(string selector)
         {
-            return new Resource_Ordered(JsonqlLinqer.OrderByDescending(Queryable, selector, parameters), JsonqlIncluder, JsonqlLinqer);
+            return new Resource_Ordered(JsonqlLinqer.OrderByDescending(Queryable, selector, Parameters), JsonqlIncluder, JsonqlLinqer);
         }
 
         /// <summary>
@@ -165,7 +193,7 @@ namespace Liyanjie.Jsonql.Core
         /// <returns></returns>
         public Resource Select(string selector)
         {
-            return new Resource(JsonqlLinqer.Select(Queryable, selector, parameters), JsonqlIncluder, JsonqlLinqer);
+            return new Resource(JsonqlLinqer.Select(Queryable, selector, Parameters), JsonqlIncluder, JsonqlLinqer);
         }
 
         /// <summary>
@@ -181,11 +209,20 @@ namespace Liyanjie.Jsonql.Core
         /// <summary>
         /// 
         /// </summary>
+        /// <returns></returns>
+        public object Sum()
+        {
+            return JsonqlLinqer.Sum(Queryable);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="selector"></param>
         /// <returns></returns>
         public object Sum(string selector)
         {
-            return JsonqlLinqer.Sum<double>(Queryable, selector, parameters);
+            return JsonqlLinqer.Sum(Queryable, selector, Parameters);
         }
 
         /// <summary>
@@ -205,7 +242,7 @@ namespace Liyanjie.Jsonql.Core
         /// <returns></returns>
         public Resource Where(string predicate)
         {
-            return new Resource(JsonqlLinqer.Where(Queryable, predicate, parameters), JsonqlIncluder, JsonqlLinqer);
+            return new Resource(JsonqlLinqer.Where(Queryable, predicate, Parameters), JsonqlIncluder, JsonqlLinqer);
         }
 
         /// <summary>
@@ -242,7 +279,7 @@ namespace Liyanjie.Jsonql.Core
         /// <returns></returns>
         public Resource_Ordered ThenBy(string selector)
         {
-            return new Resource_Ordered(JsonqlLinqer.ThenBy(OrderedQueryable, selector, parameters), JsonqlIncluder, JsonqlLinqer);
+            return new Resource_Ordered(JsonqlLinqer.ThenBy(OrderedQueryable, selector, Parameters), JsonqlIncluder, JsonqlLinqer);
         }
 
         /// <summary>
@@ -252,7 +289,7 @@ namespace Liyanjie.Jsonql.Core
         /// <returns></returns>
         public Resource_Ordered ThenByDescending(string selector)
         {
-            return new Resource_Ordered(JsonqlLinqer.ThenByDescending(OrderedQueryable, selector, parameters), JsonqlIncluder, JsonqlLinqer);
+            return new Resource_Ordered(JsonqlLinqer.ThenByDescending(OrderedQueryable, selector, Parameters), JsonqlIncluder, JsonqlLinqer);
         }
 
         /// <summary>

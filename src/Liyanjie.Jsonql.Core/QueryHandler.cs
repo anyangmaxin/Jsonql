@@ -127,7 +127,7 @@ namespace Liyanjie.Jsonql.Core
                 {
                     var selector = new SelectParser(templates).Parse(template_enumeration);
                     if (!string.IsNullOrWhiteSpace(selector))
-                        queryable = jsonqlLinqer.Select(queryable, selector, new object[0]);
+                        queryable = jsonqlLinqer.Select(queryable, selector);
                 }
 
                 if (isArrayReturn)
@@ -178,7 +178,7 @@ namespace Liyanjie.Jsonql.Core
             else if (template.StartsWith("$."))//对象的属性或方法
                 return @object.GetValue(template.Substring(2));
             else if (template.StartsWith("`"))//表达式
-                return evaluateExpression(expressions[template], variables);
+                return evaluateExpression(expressions[template], ref variables);
             else if (template.StartsWith("#"))//模板
                 return await createObject(templates[template], variables, @object);
             else if (template.StartsWith("@"))//资源
@@ -211,64 +211,72 @@ namespace Liyanjie.Jsonql.Core
                 if (@return is Resource)
                 {
                     var method = new MethodParser(segment).Parse();
-                    var parameters = method.Value.Value?.Select(_ => variables[_]).ToArray();
+                    var parameters = method.Variables.ToDictionary(_ => _, _ => variables[_]);
                     var resource = (@return as Resource).SetParameters(parameters);
-                    switch (method.Key.ToLower())
+                    switch (method.Name.ToLower())
                     {
                         case "all":
-                            @return = resource.All(method.Value.Key);
+                            @return = resource.All(method.Parameter);
                             break;
                         case "any":
-                            @return = string.IsNullOrEmpty(method.Value.Key)
+                            @return = string.IsNullOrEmpty(method.Parameter)
                                 ? resource.Any()
-                                : resource.Any(method.Value.Key);
+                                : resource.Any(method.Parameter);
                             break;
                         case "average":
-                            @return = resource.Average(method.Value.Key);
+                            @return = string.IsNullOrEmpty(method.Parameter)
+                                ? resource.Average()
+                                : resource.Average(method.Parameter);
                             break;
                         case "count":
-                            @return = string.IsNullOrEmpty(method.Value.Key)
+                            @return = string.IsNullOrEmpty(method.Parameter)
                                 ? resource.Count()
-                                : resource.Count(method.Value.Key);
+                                : resource.Count(method.Parameter);
                             break;
                         case "distinct":
                             @return = resource.Distinct();
                             break;
                         case "groupby":
-                            @return = resource.GroupBy(method.Value.Key);
+                            @return = resource.GroupBy(method.Parameter);
                             break;
                         case "max":
-                            @return = resource.Max(method.Value.Key);
+                            @return = string.IsNullOrEmpty(method.Parameter)
+                                ? resource.Max()
+                                : resource.Max(method.Parameter);
                             break;
                         case "min":
-                            @return = resource.Min(method.Value.Key);
+                            @return = string.IsNullOrEmpty(method.Parameter)
+                                ? resource.Min()
+                                : resource.Min(method.Parameter);
                             break;
                         case "orderby":
-                            @return = resource.OrderBy(method.Value.Key);
+                            @return = resource.OrderBy(method.Parameter);
                             break;
                         case "orderbydescending":
-                            @return = resource.OrderByDescending(method.Value.Key);
+                            @return = resource.OrderByDescending(method.Parameter);
                             break;
                         case "select":
-                            @return = resource.Select(method.Value.Key);
+                            @return = resource.Select(method.Parameter);
                             break;
                         case "skip":
-                            @return = resource.Skip(int.Parse(method.Value.Key));
+                            @return = resource.Skip(int.Parse(method.Parameter));
                             break;
                         case "sum":
-                            @return = resource.Sum(method.Value.Key);
+                            @return = string.IsNullOrEmpty(method.Parameter)
+                                ? resource.Sum()
+                                : resource.Sum(method.Parameter);
                             break;
                         case "take":
-                            @return = resource.Take(int.Parse(method.Value.Key));
-                            break;
-                        case "where":
-                            @return = resource.Where(method.Value.Key);
+                            @return = resource.Take(int.Parse(method.Parameter));
                             break;
                         case "thenby":
-                            @return = (resource as Resource_Ordered).ThenBy(method.Value.Key);
+                            @return = (resource as Resource_Ordered).ThenBy(method.Parameter);
                             break;
                         case "thenbydescending":
-                            @return = (resource as Resource_Ordered).ThenByDescending(method.Value.Key);
+                            @return = (resource as Resource_Ordered).ThenByDescending(method.Parameter);
+                            break;
+                        case "where":
+                            @return = resource.Where(method.Parameter);
                             break;
                         default:
                             break;
@@ -281,9 +289,9 @@ namespace Liyanjie.Jsonql.Core
             return @return;
         }
 
-        object evaluateExpression(string expression, IDictionary<string, object> variables)
+        object evaluateExpression(string expression, ref IDictionary<string, object> variables)
         {
-            return jsonqlEvaluator.Evaluate(expression.TrimStart('{').TrimEnd('}'), variables);
+            return jsonqlEvaluator.Evaluate(expression.TrimStart('{').TrimEnd('}'), ref variables);
         }
     }
 }
