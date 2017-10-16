@@ -75,17 +75,17 @@ Responsive Json Query Language，客户端发送伪Json查询，服务端返回�
 }
 ```
 
-- Liyanjie.Jsonql.AspNet [![](https://img.shields.io/myget/liyanjie/v/Liyanjie.Jsonql.AspNet.svg)][liyanjie]
-- Liyanjie.Jsonql.AspNetCore [![](https://img.shields.io/myget/liyanjie/v/Liyanjie.Jsonql.AspNetCore.svg)][liyanjie]
-- Liyanjie.Jsonql.Core [![](https://img.shields.io/myget/liyanjie/v/Liyanjie.Jsonql.Core.svg)][liyanjie]
-- Liyanjie.Jsonql.DynamicEvaluation [![](https://img.shields.io/myget/liyanjie/v/Liyanjie.Jsonql.DynamicEvaluation.svg)][liyanjie]
-- Liyanjie.Jsonql.DynamicInclude.EF [![](https://img.shields.io/myget/liyanjie/v/Liyanjie.Jsonql.DynamicInclude.EF.svg)][liyanjie]
-- Liyanjie.Jsonql.DynamicInclude.EFCore [![](https://img.shields.io/myget/liyanjie/v/Liyanjie.Jsonql.DynamicInclude.EFCore.svg)][liyanjie]
-- Liyanjie.Jsonql.DynamicLinq [![](https://img.shields.io/myget/liyanjie/v/Liyanjie.Jsonql.DynamicLinq.svg)][liyanjie]
-- Liyanjie.Jsonql.Explorer [![](https://img.shields.io/myget/liyanjie/v/Liyanjie.Jsonql.Explorer.svg)][liyanjie]
-- Liyanjie.Jsonql.Tester [![](https://img.shields.io/myget/liyanjie/v/Liyanjie.Jsonql.Tester.svg)][liyanjie]
-- Liyanjie.Jsonql.Tester.AspNet [![](https://img.shields.io/myget/liyanjie/v/Liyanjie.Jsonql.Tester.AspNet.svg)][liyanjie]
-- Liyanjie.Jsonql.Tester.AspNetCore [![](https://img.shields.io/myget/liyanjie/v/Liyanjie.Jsonql.Tester.AspNetCore.svg)][liyanjie]
+- Liyanjie.Jsonql.AspNet [![](https://img.shields.io/myget/liyanjie/vpre/Liyanjie.Jsonql.AspNet.svg)][liyanjie]
+- Liyanjie.Jsonql.AspNetCore [![](https://img.shields.io/myget/liyanjie/vpre/Liyanjie.Jsonql.AspNetCore.svg)][liyanjie]
+- Liyanjie.Jsonql.Core [![](https://img.shields.io/myget/liyanjie/vpre/Liyanjie.Jsonql.Core.svg)][liyanjie]
+- Liyanjie.Jsonql.DynamicEvaluation [![](https://img.shields.io/myget/liyanjie/vpre/Liyanjie.Jsonql.DynamicEvaluation.svg)][liyanjie]
+- Liyanjie.Jsonql.DynamicInclude.EF [![](https://img.shields.io/myget/liyanjie/vpre/Liyanjie.Jsonql.DynamicInclude.EF.svg)][liyanjie]
+- Liyanjie.Jsonql.DynamicInclude.EFCore [![](https://img.shields.io/myget/liyanjie/vpre/Liyanjie.Jsonql.DynamicInclude.EFCore.svg)][liyanjie]
+- Liyanjie.Jsonql.DynamicLinq [![](https://img.shields.io/myget/liyanjie/vpre/Liyanjie.Jsonql.DynamicLinq.svg)][liyanjie]
+- Liyanjie.Jsonql.Explorer [![](https://img.shields.io/myget/liyanjie/vpre/Liyanjie.Jsonql.Explorer.svg)][liyanjie]
+- Liyanjie.Jsonql.Tester [![](https://img.shields.io/myget/liyanjie/vpre/Liyanjie.Jsonql.Tester.svg)][liyanjie]
+- Liyanjie.Jsonql.Tester.AspNet [![](https://img.shields.io/myget/liyanjie/vpre/Liyanjie.Jsonql.Tester.AspNet.svg)][liyanjie]
+- Liyanjie.Jsonql.Tester.AspNetCore [![](https://img.shields.io/myget/liyanjie/vpre/Liyanjie.Jsonql.Tester.AspNetCore.svg)][liyanjie]
                             
 
 [liyanjie]:http://myget.org/gallery/liyanjie
